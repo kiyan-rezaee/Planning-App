@@ -78,15 +78,13 @@ function fadeIn(el, display) {
         }
     })();
 };
-// we added :)
-const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
-
-signUpButton.addEventListener('click', () => {
-	container.classList.add("right-panel-active");
-});
-
-signInButton.addEventListener('click', () => {
-	container.classList.remove("right-panel-active");
-});
+// sign up / sign in
+function switchSignUp(key) {
+    var login = document.getElementById('login-form');
+    if (key) {
+        login.classList.add("right-panel-active");
+    }
+    else {
+        login.classList.remove("right-panel-active");
+    }
+}
