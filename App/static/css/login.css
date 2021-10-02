@@ -6,14 +6,6 @@
 	--input-bg: rgb(228, 228, 228);
 }
 
-* {
-	box-sizing: border-box;
-}
-
-a {
-	text-decoration: none;
-}
-
 form {
 	background-color: #FFFFFF;
 	display: flex;
@@ -35,16 +27,10 @@ input {
 	color: black;
 }
 
-#login {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
 .login-h1 {
-	font-size: 30px;
+	font-size: calc(16px + 0.5vw);
 	font-weight: bold;
+	text-transform: uppercase;
 	margin: 0;
 }
 

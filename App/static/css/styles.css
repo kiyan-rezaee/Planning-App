@@ -32,13 +32,18 @@ body {
 }
 
 section {
+  padding: 10vh 3vw 3vh;
   min-height: 100vh;
-  padding: 5vh;
   align-items: center;
 }
 
-section:nth-child(1) {
+section:nth-child(1),
+.section1 {
   background-color: yellowgreen;
+  background-image: url("../assets/img/bg-masthead.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 ul {
@@ -49,6 +54,10 @@ a {
   text-decoration: none;
 }
 
+nav {
+  transition: all ease 0.4s;
+}
+
 nav div ul li {
   border: none;
 }
@@ -57,20 +66,31 @@ nav div ul li a {
   font-size: calc(7px + 0.4vw);
   text-transform: uppercase;
   font-weight: bold;
-  color: #585b5b;
+  color: #5b5a58;
   letter-spacing: 2px;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
+  margin: 0.2vh 0.3vw !important;
+  padding: 0.6vh 0.6vw !important;
   border-radius: 10px;
-  transition: all ease 0.8s !important;
+  transition: all ease 0.2s !important;
 }
 
-nav div ul li a.active,
+nav div ul li a.active {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  transition: all ease 0.4s !important;
+}
+
 nav div ul li a:hover {
-  background-color: #fffd98;
-  box-shadow: rgba(191, 174, 136, 0.48) 6px 2px 16px 0px,
-    rgba(255, 248, 216, 0.8) -6px -2px 16px 0px;
-  transition: all ease 0.2s !important;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  transition: all ease 0.4s !important;
+
+}
+
+footer {
+  background-color: #5b5a58;
+  padding: 20px 0;
 }
 
 /* id */
@@ -85,36 +105,36 @@ nav div ul li a:hover {
     cursive;
 }
 
+.profile-pic {
+  border-radius: 50%;
+  height: calc(130px + 2vw);
+  width: calc(130px + 2vw);
+  max-width: 200px;
+  max-height: 200px;
+  margin: 2vh;
+}
+
+.profile-name {
+  font-size: calc(12px + .4vw);
+}
+
+.header-h1 {
+  font-size: calc(34px + 2vw);
+  font-weight: bold;
+}
+
+.header-p {
+  font-size: calc(18px + 0.6vw);
+}
+
 .blur-bg {
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.4);
+  transition: all ease 0.4s;
 }
 
 .add-shadow {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.1) 0px 4px 6px -2px;
-}
-
-.masthead {
-  min-height: 30rem;
-  position: relative;
-  display: table;
-  width: 100%;
-  height: auto;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../assets/img/bg-masthead.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-primary {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
-}
-
-.text-white {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+  transition: all ease 0.4s;
 }
