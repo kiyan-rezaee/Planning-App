@@ -3,7 +3,11 @@
 :root {
 	--overlay-color: rgba(78, 78, 78, 1);
 	--button-color: #fff74e;
-	--input-bg: rgb(228, 228, 228);
+	--input-bg: #e6e6e6;
+	--half-width: 500px;
+	--social-anime-time: 0.3s;
+	--item-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+		rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 form {
@@ -25,6 +29,35 @@ input {
 	margin: 8px 0;
 	width: 100%;
 	color: black;
+	box-shadow: var(--item-shadow);
+}
+
+#login-form {
+	width: 66vw;
+	height: auto;
+}
+
+.social {
+	box-shadow: var(--item-shadow);
+}
+
+.social [class*="fa"] {
+	transition: all ease-in-out var(--social-anime-time);
+}
+
+.social:hover .fa-github {
+	color: #0D1117;
+	transition: color ease-in-out var(--social-anime-time);
+}
+
+.social:hover .fa-google-plus-g {
+	color: #CC3B2F;
+	transition: color ease-in-out var(--social-anime-time);
+}
+
+.social:hover .fa-linkedin-in {
+	color: #0A66C2;
+	transition: color ease-in-out var(--social-anime-time);
 }
 
 .login-h1 {
@@ -53,6 +86,7 @@ input {
 	margin-top: 10px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+	box-shadow: var(--item-shadow);
 	transition: all 0.1s ease-in;
 }
 
@@ -204,6 +238,7 @@ input {
 	width: 40px;
 }
 
+/* animation */
 @keyframes show {
 
 	0%,
@@ -216,5 +251,17 @@ input {
 	100% {
 		opacity: 1;
 		z-index: 5;
+	}
+}
+
+/* responsive */
+@media only screen and (max-width: 990px) {
+	#login-form {
+		width: 100vw;
+		height: auto;
+	}
+
+	.header-p {
+		text-align: center;
 	}
 }

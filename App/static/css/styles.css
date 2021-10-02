@@ -130,11 +130,10 @@ footer {
 .blur-bg {
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.4);
-  transition: all ease 0.4s;
+  transition: background-color ease 0.4s;
 }
 
 .add-shadow {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.1) 0px 4px 6px -2px;
-  transition: all ease 0.4s;
 }
