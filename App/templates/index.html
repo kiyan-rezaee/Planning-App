@@ -31,14 +31,62 @@
         </ul>
     </nav>
     <!-- Header -->
-    <header class="masthead d-flex align-items-center">
-        <div class="container px-4 px-lg-5 text-center">
-            <h1 class="mb-1">Educational Scheduling</h1>
-            <h3 class="mb-5"><em>We help you to study more effective</em></h3>
-
+    <section class="masthead d-flex align-items-center">
+        <div class="container text-center">
+<div class="row">
+    <div class="col-4" id="login"><div class="login" id="login-form">
+            <div class="form-login sign-up-login">
+                <form action="#">
+                    <h1 class="login-h1">Create Account</h1>
+                    <div class="social-login">
+                        <a href="#" class="social"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="login-p" style="margin: 0px;">or use your email for registration</p>
+                    <input type="text" placeholder="Name" />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button class="btn-login">Sign Up</button>
+                </form>
+            </div>
+            <div class="form-login sign-in-login">
+                <form action="#">
+                    <h1 class="login-h1">Sign In</h1>
+                    <div class="social-login">
+                        <a href="#" class="social"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="login-p" style="margin: 0px;">or use your account</p>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button class="btn-login">Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-login">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1 class="login-h1">Hello, Friend!</h1>
+                        <p class="login-p">Enter your personal details and start journey with us<br>or login if you
+                            already have an account</p>
+                        <button class="btn-login ghost" onclick="switchSignUp(false)">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1 class="login-h1">Welcome Back!</h1>
+                        <p class="login-p">To keep connected with us please login with your personal info<br>or sign up
+                            if you're new!</p>
+                        <button class="btn-login ghost" onclick="switchSignUp(true)">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+    <div class="col-8"><h1 class="mb-1">Educational Scheduling</h1>
+            <h3 class="mb-5"><em>We help you to study more effective</em></h3></div>
+  </div>
             <a class="btn btn-primary btn-xl" href="#login">Sign up / Sign in</a>
         </div>
-    </header>
+    </section>
     <!-- Services -->
     <section class="content-section bg-primary text-white text-center" id="services">
         <div class="container px-4 px-lg-5">
@@ -75,7 +123,7 @@
         </div>
     </section>
     <!-- Sign in / Sign up -->
-    <section class="content-section bg-light" id="login">
+    <!-- <section class="content-section bg-light" id="login2">
         <div class="login" id="login-form">
             <div class="form-login sign-up-login">
                 <form action="#">
@@ -123,37 +171,70 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Footer-->
-    <footer class="footer text-center" id="contacts">
+    <footer class="text-center" id="contacts">
         <div class="container">
-            <h2 align="center">Team</h2>
+            <h1 align="center">Team</h1>
+            <br>
             <div class="row">
                 <div class="col-sm">
-                    Kiyan Rezaee
+                    <img src="../static/assets/img/rezaei.png" alt="" style="height: 250px; width:250px">
+                    <p>Kiyan Rezaee</p>
+                    <div class="container px-4 px-lg-5">
+                        <ul class="list-inline mb-5">
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white mr-3" href="#!"><i
+                                        class="icon-social-linkedin"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-sm">
-                    Mehrshad Dadashzadeh
+                    <img src="../static/assets/img/Dadashzade.png" alt="" style="height: 250px; width:250px">
+                    <p>Mehrshad Dadashzadeh</p>
+                    <div class="container px-4 px-lg-5">
+                        <ul class="list-inline mb-5">
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white mr-3" href="#!"><i
+                                        class="icon-social-linkedin"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-sm">
-                    Vahid Aghilzadeh
+                    <img src="../static/assets/img/Aghili.png" alt="" style="height: 250px; width:250px">
+                    <p>Vahid Aghilzadeh</p>
+                    <div class="container px-4 px-lg-5">
+                        <ul class="list-inline mb-5">
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white mr-3" href="#!"><i
+                                        class="icon-social-linkedin"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="container px-4 px-lg-5">
-            <ul class="list-inline mb-5">
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white mr-3" href="#!"><i
-                            class="icon-social-facebook"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white mr-3" href="#!"><i
-                            class="icon-social-twitter"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
-                </li>
-            </ul>
+        
+        <!-- FOOTER -->
+        <div >
+            <footer >
+                <div style="background-color: #2a2e32;">
+                            <h3 class="h1 text-white">Contact us</h3>
+                            <p class="small text-muted" align="center">Copying part or all of this project is only possible with written permission.</p>
+                            <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
     </footer>
     <!-- Scroll to Top Button-->
@@ -163,5 +244,4 @@
     <!-- Core theme JS-->
     <script src="../static/js/scripts.js"></script>
 </body>
-
 </html>
