@@ -8,10 +8,11 @@
 	--social-anime-time: 0.3s;
 	--item-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
 		rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+	--bg: rgb(255, 255, 255);
 }
 
 form {
-	background-color: #FFFFFF;
+	background-color: var(--bg);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -33,7 +34,9 @@ input {
 }
 
 #login-form {
-	width: 66vw;
+	opacity: 0.89;
+	margin-top: 10px;
+	width: 80vw;
 	height: auto;
 }
 
@@ -112,7 +115,7 @@ input {
 
 .login {
 	font-family: 'Montserrat', sans-serif;
-	background-color: #fff;
+	background-color: var(--bg);
 	border-radius: 10px;
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
 		0 10px 10px rgba(0, 0, 0, 0.22);
