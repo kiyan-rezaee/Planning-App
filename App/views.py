@@ -20,11 +20,11 @@ def dashboard(request):
         'year': datetime.now().year,
     })
 
-def signup(request):
+def signUp(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    return render(request, 'signup.html', {
-        'title': 'SignUp Page',
+    return render(request, 'signUp.html', {
+        'title': 'Sign Up Page',
         'year': datetime.now().year,
     })
 
