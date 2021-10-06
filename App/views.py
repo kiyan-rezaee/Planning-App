@@ -1,31 +1,51 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from datetime import datetime
+from .models import Newuser
+from django.shortcuts import redirect
+
+
+def checkSignUp(name, email, password):
+    print(str(email))
+    try:
+        print(Newuser.objects.get(email=str(email)))
+        return False
+    except:
+        return True
+
+
+def checkLogin(email, pas):
+    pass
 
 
 def index(request):
-    """Renders the home page."""
     # assert isinstance(request, HttpRequest)
     if request.method == 'POST':
-        if request.POST.get('name') and request.POST.get('email'):
-            post = newuser()
-            post.name = request.POST.get('name')
+        if checkSignUp(request.POST.get('fullname'),
+                       request.POST.get('password'),
+                       request.POST.get('email')):  # sign up
+            post = Newuser()
+            post.fullname = request.POST.get('fullname')
             post.email = request.POST.get('email')
             post.password = request.POST.get('password')
             post.save()
-            return render(request, 'index.html', {
-                'title': 'Home Page',
-                'year': datetime.now().year,
-            })
-        else:
-            return render(request, 'index.html', {
-                'title': 'Home Page',
-                'year': datetime.now().year,
-            })
+            response = redirect('/signUp')
+            return response
+        elif checkLogin(request.POST.get('email'),
+                        request.POST.get('password')):  #sign in
+
+            response = redirect('/dashboard')
+            return response
+    else:
+        return home(request)
+    return home(request)
+
+
+def home(request):
     return render(request, 'index.html', {
-                'title': 'Home Page',
-                'year': datetime.now().year,
-            })
+        'title': 'Home Page',
+        'year': datetime.now().year,
+    })
 
 
 def dashboard(request):
@@ -36,6 +56,7 @@ def dashboard(request):
         'year': datetime.now().year,
     })
 
+
 def signUp(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -43,24 +64,3 @@ def signUp(request):
         'title': 'Sign Up Page',
         'year': datetime.now().year,
     })
-
-
-# def contact(request):
-#     """Renders the contact page."""
-#     assert isinstance(request, HttpRequest)
-#     return render(
-#         request, 'contact.html', {
-#             'title': 'Contact',
-#             'message': 'Your contact page.',
-#             'year': datetime.now().year,
-#         })
-
-# def about(request):
-#     """Renders the about page."""
-#     assert isinstance(request, HttpRequest)
-#     return render(
-#         request, 'about.html', {
-#             'title': 'About',
-#             'message': 'Your application description page.',
-#             'year': datetime.now().year,
-#         })
