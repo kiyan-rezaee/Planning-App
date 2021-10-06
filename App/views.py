@@ -5,11 +5,27 @@ from datetime import datetime
 
 def index(request):
     """Renders the home page."""
-    assert isinstance(request, HttpRequest)
+    # assert isinstance(request, HttpRequest)
+    if request.method == 'POST':
+        if request.POST.get('name') and request.POST.get('email'):
+            post = newuser()
+            post.name = request.POST.get('name')
+            post.email = request.POST.get('email')
+            post.password = request.POST.get('password')
+            post.save()
+            return render(request, 'index.html', {
+                'title': 'Home Page',
+                'year': datetime.now().year,
+            })
+        else:
+            return render(request, 'index.html', {
+                'title': 'Home Page',
+                'year': datetime.now().year,
+            })
     return render(request, 'index.html', {
-        'title': 'Home Page',
-        'year': datetime.now().year,
-    })
+                'title': 'Home Page',
+                'year': datetime.now().year,
+            })
 
 
 def dashboard(request):

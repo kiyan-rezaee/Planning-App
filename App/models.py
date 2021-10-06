@@ -15,3 +15,9 @@ class Item(models.Model):
 
     def __str__(self):
         return str(self.text)
+
+
+class newuser(models.Model):
+    name = models.CharField(max_length=300)
+    email = models.EmailField()
+    password = models.CharField(max_length=300)
