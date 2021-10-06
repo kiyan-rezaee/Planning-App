@@ -6,24 +6,31 @@ from django.shortcuts import redirect
 
 
 def checkSignUp(name, email, password):
-    print(str(email))
     try:
-        print(Newuser.objects.get(email=str(email)))
+        Newuser.objects.get(email=str(email))
         return False
     except:
         return True
 
 
-def checkLogin(email, pas):
-    pass
+def checkLogin(email, pas):    
+    try:
+        old = Newuser.objects.get(email=str(email))
+        # print(old.password,str(pas))
+        if old.password == str(pas):
+            return True
+        return False
+    except:
+        return False
+    return False
 
 
 def index(request):
     # assert isinstance(request, HttpRequest)
     if request.method == 'POST':
         if checkSignUp(request.POST.get('fullname'),
-                       request.POST.get('password'),
-                       request.POST.get('email')):  # sign up
+                       request.POST.get('email'),
+                       request.POST.get('password')):  # sign up
             post = Newuser()
             post.fullname = request.POST.get('fullname')
             post.email = request.POST.get('email')
