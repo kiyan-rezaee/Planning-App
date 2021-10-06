@@ -245,8 +245,8 @@
 
 .home-section {
     position: relative;
-    background-color: yellowgreen;
-    background-image: url("../assets/img/bg-callout.jpg");
+    background-color: #CAC799;
+    background-image: linear-gradient(to right top, #b9c5d6, #a7d6e5, #9fe7de, #b9f2c4, #f1f4a8);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
