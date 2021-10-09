@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Josefin+Sans&display=swap');
+@import url('animation.css');
 
 :root {
     /* background */
@@ -15,17 +17,67 @@
     --height-log: 80px;
     /* width */
     --width-sidebar: 78px;
+    --width-sidebar-open: 250px;
     /* transition */
     --transition-time: 0.5s;
+    --transition-time-cards: 0.4s;
 }
 
 * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
 }
 
+html,
+body {
+    font-family: 'Josefin Sans',
+        sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    color: black;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #d6d6d6;
+}
+
+/* dashboard stuff */
+section {
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    top: 0;
+    left: var(--width-sidebar);
+    width: calc(100% - var(--width-sidebar));
+    transition: all var(--transition-time) ease;
+    z-index: 2;
+}
+
+#dashboard {
+    background-color: #CAC799;
+    background-image: linear-gradient(to right top, #b9c5d6, #a7d6e5, #9fe7de, #b9f2c4, #f1f4a8);
+}
+
+.cards {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    height: 250px;
+    width: auto;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    transition: all ease-out var(--transition-time-cards);
+}
+
+.cards:hover {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    transition: all ease-out var(--transition-time-cards);
+}
+
+
+/* sidebar stuff */
 #sidebar {
     position: fixed;
     overflow-y: auto;
@@ -41,7 +93,7 @@
 }
 
 #sidebar.open {
-    width: 250px;
+    width: var(--width-sidebar-open);
 }
 
 #sidebar .logo-details {
@@ -74,7 +126,6 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    font-size: 22px;
     transition: all calc(var(--bg-sidebar) - 0.1s) ease;
     font-size: 23px;
     text-align: center;
@@ -189,40 +240,41 @@
 }
 
 #sidebar.open li.profile {
-    width: 250px;
+    width: var(--width-sidebar-open);
 }
 
 #sidebar li .profile-details {
     display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    opacity: 0;
-    transition: all calc(var(--transition-time) - 0.2s) ease;
+    /* align-items: center; */
+    content-visibility: hidden;
+    transform: translateX(-200px);
+    transition: all var(--transition-time) ease;
 }
 
 #sidebar.open li .profile-details {
-    opacity: 1;
-    transition: all var(--transition-time) ease;
+    content-visibility: visible;
+    transform: translateX(0px);
+    transition: all var(--transition-time) ease calc(var(--transition-time) - 0.2s);
 }
 
 #sidebar li img {
     height: 45px;
     width: 45px;
     object-fit: cover;
-    border-radius: 6px;
-    margin-right: 10px;
+    border-radius: 50%;
+    /* margin-right: 10px; */
 }
 
-#sidebar li.profile .username,
-#sidebar li.profile .coin {
+#sidebar .profile .username,
+#sidebar .profile .coin {
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--color-text-log);
-    /* white-space: nowrap; */
 }
 
-#sidebar li.profile .coin {
-    font-size: 12px;
+#sidebar .profile,
+#sidebar.open .profile {
+    transition: all calc(var(--transition-time)) ease;
 }
 
 #sidebar .profile #log_out {
@@ -241,32 +293,10 @@
 #sidebar.open .profile #log_out {
     width: 50px;
     background: none;
-}
-
-.home-section {
-    position: relative;
-    background-color: #CAC799;
-    background-image: linear-gradient(to right top, #b9c5d6, #a7d6e5, #9fe7de, #b9f2c4, #f1f4a8);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-    top: 0;
-    left: var(--width-sidebar);
-    width: calc(100% - var(--width-sidebar));
     transition: all var(--transition-time) ease;
-    z-index: 2;
 }
 
-#sidebar.open~.home-section {
-    left: 250px;
-    width: calc(100% - 250px);
-}
-
-.home-section .text {
-    display: inline-block;
-    color: #11101d;
-    font-size: 25px;
-    font-weight: 500;
-    margin: 18px
+#sidebar.open~#dashboard {
+    left: var(--width-sidebar-open);
+    width: calc(100% - var(--width-sidebar-open));
 }
