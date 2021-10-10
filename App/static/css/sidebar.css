@@ -2,6 +2,23 @@
 @import url('animation.css');
 @import url('dashboard.min.css');
 
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
 * {
     padding: 0;
     box-sizing: border-box;
@@ -17,7 +34,7 @@ body {
     justify-content: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #d6d6d6;
+    background-color: #F8F7FB;
 }
 
 #sidebar {
@@ -29,9 +46,10 @@ body {
     width: var(--width-sidebar);
     height: calc(100% - var(--height-log));
     background: var(--bg-sidebar);
+    background: linear-gradient(to bottom, #11101d, #141322, #171627, #1a192c, #1d1b31);
     padding: 6px 14px;
     z-index: 99;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open {
@@ -47,7 +65,7 @@ body {
 
 #sidebar .logo-details .icon {
     opacity: 0;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar .logo-details .logo_name {
@@ -55,7 +73,7 @@ body {
     font-weight: 600;
     font-size: 20px;
     opacity: 0;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open .logo-details .icon,
@@ -68,11 +86,11 @@ body {
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    transition: all calc(var(--bg-sidebar) - 0.1s) ease;
+    transition: all calc(var(--bg-sidebar) - 0.1s) ease-in-out;
     font-size: 23px;
     text-align: center;
     cursor: pointer;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open .logo-details #btn {
@@ -102,17 +120,17 @@ body {
     position: absolute;
     top: -20px;
     left: calc(100% + 15px);
-    z-index: 3;
+    z-index: 300;
     background: var(--bg-tooltip);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     padding: 6px 12px;
     border-radius: 10px;
     font-size: 15px;
     font-weight: 400;
-    opacity: 0;
+    opacity: 1;
     white-space: nowrap;
     pointer-events: none;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-in-out;
 }
 
 #sidebar li:hover .tooltip {
@@ -120,7 +138,7 @@ body {
     pointer-events: auto;
     top: 50%;
     transform: translateY(-50%);
-    transition: all 0.4s ease;
+    transition: all calc(var(--transition-time) - 0.2s) ease-in-out;
 }
 
 #sidebar.open li .tooltip {
@@ -134,7 +152,7 @@ body {
     border-radius: 12px;
     align-items: center;
     text-decoration: none;
-    transition: all 0.4s ease;
+    transition: all calc(var(--transition-time) - 0.2s) ease-in-out;
 }
 
 #sidebar li a:hover {
@@ -148,7 +166,7 @@ body {
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: 0.4s;
+    transition: all calc(var(--transition-time) - 0.2s) ease-in-out;
 }
 
 #sidebar.open li a .links_name {
@@ -158,7 +176,7 @@ body {
 
 #sidebar li a:hover .links_name,
 #sidebar li a:hover i {
-    transition: all var(--transition-time) ease;
+    transition: all calc(var(--transition-time) - 0.2s) ease-in-out;
     color: var(--color-icon-text-hover);
 }
 
@@ -177,7 +195,7 @@ body {
     bottom: -8px;
     padding: 10px 14px;
     background: #1d1b31;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
     overflow: hidden;
 }
 
@@ -190,7 +208,7 @@ body {
     /* align-items: center; */
     content-visibility: hidden;
     transform: translateX(-200px);
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open li .profile-details {
@@ -216,7 +234,7 @@ body {
 
 #sidebar .profile,
 #sidebar.open .profile {
-    transition: all calc(var(--transition-time)) ease;
+    transition: all calc(var(--transition-time)) ease-in-out;
 }
 
 #sidebar .profile #log_out {
@@ -229,16 +247,22 @@ body {
     height: 60px;
     line-height: 60px;
     border-radius: 0px;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open .profile #log_out {
     width: 50px;
     background: none;
-    transition: all var(--transition-time) ease;
+    transition: all var(--transition-time) ease-in-out;
 }
 
 #sidebar.open~#dashboard {
     left: var(--width-sidebar-open);
     width: calc(100% - var(--width-sidebar-open));
+}
+
+@media (max-width:768px) {
+    [class*='col'] {
+        width: 100%;
+    }
 }

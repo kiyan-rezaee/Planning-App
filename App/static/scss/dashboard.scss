@@ -4,6 +4,7 @@
     --bg-sidebar: #11101d;
     --bg-tooltip: rgb(255, 255, 255);
     --bg-text-hover: rgb(255, 255, 255);
+    --bg-cards: #FFFFFD;
     /* color */
     --color-icon: rgb(255, 255, 255);
     --color-text: rgb(255, 255, 255);
@@ -32,19 +33,14 @@ section {
     z-index: 2;
 }
 
-#dashboard {
-    background-color: #CAC799;
-    background-image: linear-gradient(to right top, #b9c5d6, #a7d6e5, #9fe7de, #b9f2c4, #f1f4a8);
-}
-
 .cards {
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.6);
+    padding: 15px 10px;
+    background-color: var(--bg-cards);
     border-radius: 10px;
     height: 250px;
-    width: auto;
+    min-width: 300px;
     overflow: auto;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transition: all ease-out var(--transition-time-cards);
 
     &:hover {
