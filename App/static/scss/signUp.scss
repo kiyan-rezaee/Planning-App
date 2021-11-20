@@ -92,31 +92,89 @@ input {
     filter: drop-shadow(rgba(0, 0, 0, 0.24) 0px 3px 8px);
 }
 
+$btn-animation-time: 0.4s;
+
+.btn-next2 {
+    border-radius: 20px;
+    border: 1px solid rgba(221, 221, 221, 0);
+    background-color: #fff74e;
+    color: black;
+    font-size: 16px;
+    padding: 12px 45px;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all $btn-animation-time ease-in;
+
+    &:hover {
+        transform: scaleX(1.1);
+        transition: all $btn-animation-time ease-in;
+
+        b {
+            opacity: 1;
+            right: 30px;
+            transition: all $btn-animation-time ease-in-out;
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+        transition: all $btn-animation-time ease-in;
+
+        b {
+            opacity: 1;
+            right: 30px;
+            transition: all $btn-animation-time ease-in-out;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    b {
+        opacity: 0;
+        position: absolute;
+        display: flex;
+        right: 30%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all $btn-animation-time ease-in-out;
+    }
+}
+
 .btn-next {
-    $btn-animation-time: 0.4s;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     width: calc(250px + 2vw);
     max-width: 400px;
     border-radius: 15px;
     padding: 5px 20px;
+    font-size: 16px;
     border: none;
     outline: none;
     position: relative;
     background-size: 300% 100%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background-color: #fff;
-    color: #fff;
     transition: all $btn-animation-time ease-in-out;
-    background-image: linear-gradient(to right,
-            #0ba360,
-            #3cba92,
-            #30dd8a,
-            #2bb673);
+    background-color: #fff74e;
+    color: #000;
+    // color: #fff;
+    // background-image: linear-gradient(to right,
+    //         #0ba360,
+    //         #3cba92,
+    //         #30dd8a,
+    //         #2bb673);
 
     &:hover {
-        background-color: rgb(107, 204, 94);
+        // background-color: rgb(107, 204, 94);
+        // box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
         background-position: 100% 0;
+        transform: scaleX(1.1);
         transition: all $btn-animation-time ease-in-out;
-        box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
 
         b {
             opacity: 1;
