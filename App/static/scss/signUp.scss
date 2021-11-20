@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Josefin+Sans&display=swap');
 @import url('animation.css');
 @import url('dashboard.min.css');
+@import url('scrollbar.css');
 
 * {
     padding: 0;
@@ -30,53 +31,121 @@ section {
     width: 100%;
     top: 0;
     left: 0;
-
 }
 
-.bodysec {
-    padding: 5px;
-    margin: 0px 10px;
+hr {
+    background-color: transparent;
+    border-top: 2px dashed #000000f8;
 }
 
-.course {
+input {
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.courseInput {
     display: block;
     margin: 10px;
-    padding: 5px;
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
 }
 
 .container-lg {
-    background-color: rgba(209, 209, 209, 0.8);
-    margin-top: 10px;
-    padding: 20px;
+    background-color: rgba(226, 226, 226, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    margin: 10px auto;
+    padding: 20px 50px;
     font-size: 24px;
+    border-radius: 15px;
 
-    input {
-        display: inline;
+
+    .input-box {
         margin: 10px;
-        width: 500px !important;
-        padding: 10px;
-        height: 40px;
+        border: none;
+        outline: none;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         border-radius: 10px;
+    }
+}
+
+.titles {
+    margin-top: 30px;
+    padding: 0;
+}
+
+#course {
+    padding: 0px 5px;
+}
+
+#counter {
+    width: 300px !important;
+}
+
+.form-title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    filter: drop-shadow(rgba(0, 0, 0, 0.24) 0px 3px 8px);
+}
+
+.btn-next {
+    $btn-animation-time: 0.4s;
+    width: calc(250px + 2vw);
+    max-width: 400px;
+    border-radius: 15px;
+    padding: 5px 20px;
+    border: none;
+    outline: none;
+    position: relative;
+    background-size: 300% 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: #fff;
+    color: #fff;
+    transition: all $btn-animation-time ease-in-out;
+    background-image: linear-gradient(to right,
+            #0ba360,
+            #3cba92,
+            #30dd8a,
+            #2bb673);
+
+    &:hover {
+        background-color: rgb(107, 204, 94);
+        background-position: 100% 0;
+        transition: all $btn-animation-time ease-in-out;
+        box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+
+        b {
+            opacity: 1;
+            right: 30px;
+            transition: all $btn-animation-time ease-in-out;
+        }
+    }
+
+    b {
+        opacity: 0;
+        position: absolute;
+        display: flex;
+        right: 30%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all $btn-animation-time ease-in-out;
     }
 }
 
 $number-of-options: 5;
 
-#form-wrapper {
+.form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
     max-width: 500px;
 
-    #form-title {
-        margin-top: 0;
-        font-weight: 400;
-        font-size: 20px;
-        text-align: center;
-    }
-
-    #debt-amount-slider {
+    .debt-amount-slider {
         display: flex;
         flex-direction: row;
         align-content: stretch;
@@ -84,6 +153,7 @@ $number-of-options: 5;
         width: 100%;
         height: 50px;
         user-select: none;
+        filter: drop-shadow(rgba(0, 0, 0, 0.24) 0px 3px 8px);
 
         &::before {
             content: " ";
@@ -116,7 +186,7 @@ $number-of-options: 5;
                 content: attr(data-debt-amount);
                 position: absolute;
                 left: 50%;
-                padding-top: 10px;
+                padding-top: 5px;
                 transform: translate(-50%, 45px);
                 font-size: 14px;
                 letter-spacing: 0.4px;
@@ -160,39 +230,18 @@ $number-of-options: 5;
 
                 +label::after {
                     border-width: 4px;
-                    transform: translate(-50%, -50%) scale(0.75);
+                    border-color: #fff;
+                    background-color: #000;
+                    // transform: translate(-50%, -50%) scale(0.9);
                 }
 
-                ~#debt-amount-pos {
-                    opacity: 1;
-                }
-
-                @for $i from 1 through $number-of-options {
-                    &:nth-child(#{$i * 2 - 1})~#debt-amount-pos {
-                        left: #{($i * 20%) - 10%};
-                    }
-                }
             }
         }
 
-        #debt-amount-pos {
-            display: block;
-            position: absolute;
-            top: 50%;
-            width: 12px;
-            height: 12px;
-            background: #000;
-            border-radius: 50%;
-            transition: all 0.15s ease-in-out;
-            transform: translate(-50%, -50%);
-            border: 2px solid #fff;
-            opacity: 0;
-            z-index: 2;
-        }
     }
 
     &:valid {
-        #debt-amount-slider {
+        .debt-amount-slider {
             input {
                 +label::before {
                     transform: translate(-50%, 45px) scale(0.9);

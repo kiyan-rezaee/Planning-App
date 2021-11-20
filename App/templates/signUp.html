@@ -9,93 +9,58 @@
     <link href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/signUp.min.css" rel="stylesheet">
-    <link href="../static/css/progressBar.css" rel="stylesheet">
+    <link href="../static/css/rangeBar.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <section class="bodysec">
         <div class="container-lg text-center">
-            <div class="row justify-content-around">
-                <input type="text" placeholder="Firstname" name="Firstname" required /><br>
-                <input type="text" placeholder="Lastname" name="Lastname" required /><br>
-                <input type="date" name="DOB" required />
+            <div class="row justify-content-around d-flex align-items-center">
+                <h1 class="form-title col-3">First Name</h1>
+                <input class="input-box col-8" type="text" placeholder="Firstname" name="Firstname" required />
             </div>
-            <div class="value">1</div>
-            <input id='counter' type="range" min="1" max="15" step="1" value="1" onchange="myFunction()" required>
-            <section id="course">
-            </section>
-
+            <div class="row justify-content-around d-flex align-items-center">
+                <h1 class="form-title col-3">Last Name</h1>
+                <input class="input-box col-8" type="text" placeholder="Lastname" name="Lastname" required />
+            </div>
+            <div class="row justify-content-around d-flex align-items-center">
+                <h1 class="form-title col-3">Data of Birth</h1>
+                <input id="date" class="input-box col-8" type="date" min="1930-01-01" name="DOB" required />
+            </div>
+            <hr>
+            <div class="row justify-content-around d-flex align-items-center">
+                <h1 class="form-title col-3">Course Count</h1>
+                <div class="col-12">
+                    <div class="value">1</div>
+                    <input id='counter' type="range" min="1" max="15" step="1" value="1" onchange="checkCourse()"
+                        required>
+                </div>
+            </div>
+            <div class="row titles">
+                <h1 class="form-title col-5 d-flex justify-content-around">Course Name</h1>
+                <h1 class="form-title col-7 d-flex justify-content-around">Select Priority</h1>
+            </div>
+            <div id="course"></div>
+            <hr>
+            <div class="row justify-content-around d-flex align-items-center">
+                <div class="col-6">
+                    <form action="#" method="POST">
+                        <button onclick="window.location.href='/dashboard'" class="btn-next text-center">Next
+                            <b><i class="fas fa-chevron-right"></i></b>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
-
-    </div>
-    <!--
-dob
-firstname
-lastname
-course
-1.auto
-2.manual
--->
-
-    <!--
-marhale baad
-chart
--->
-
-
-
 
     <!-- script -->
     <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function myFunction() {
-            var x = document.getElementById("counter").value;
-            if (x > 15) {
-                x = 15;
-            }
-            if (x < 1) {
-                x = 1;
-            }
-            document.getElementById('course').innerHTML = "";
-            for (i = 0; i < x; i++) {
-                element = document.getElementById("course");
-                element.innerHTML += `<div class="row">
-                <div class="col-6"><input class="course" type="text" name=${"course" + (i + 1).toString()}
-                        placeholder="Enter course name"></div>
-                <div class="col-6">
-                    <div id="form-wrapper">
-                        <h1 id="form-title">Select Priority</h1>
-                        <div id="debt-amount-slider">
-                            <input type="radio" name="debt-amount" id="1" value="1" required>
-                            <label for="1" data-debt-amount="1"></label>
-                            <input type="radio" name="debt-amount" id="2" value="2" required>
-                            <label for="2" data-debt-amount="2"></label>
-                            <input type="radio" name="debt-amount" id="3" value="3" required>
-                            <label for="3" data-debt-amount="3"></label>
-                            <input type="radio" name="debt-amount" id="4" value="4" required>
-                            <label for="4" data-debt-amount="4"></label>
-                            <input type="radio" name="debt-amount" id="5" value="5" required>
-                            <label for="5" data-debt-amount="5"></label>
-                        </div>
-                        </div>
-                    </div>
-                    </div>`
-                // console.log("course" + (i + 1).toString())
-            }
-        }
-        var elem = document.querySelector('input[type="range"]');
-        var rangeValue = function () {
-            var newValue = elem.value;
-            var target = document.querySelector('.value');
-            target.innerHTML = newValue;
-        }
-        elem.addEventListener("input", rangeValue);
-    </script>
+    <script src="../static/js/coursePick.js"></script>
+    <script src="../static/js/todayDate.js"></script>
 </body>
 
 </html>

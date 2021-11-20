@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Josefin+Sans&display=swap');
 @import url('animation.css');
+@import url('scrollbar.css');
 
 :root {
   scroll-behavior: smooth;
