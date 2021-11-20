@@ -3,46 +3,67 @@ from django.http import HttpRequest
 from datetime import datetime
 from .models import User
 from django.shortcuts import redirect
+from django.contrib import messages
 
 
-def checkSignUp(name, email, password):
+def checkSignUp(username, email, pas):
     try:
-        User.objects.get(email=str(email))
+        User.objects.get(Email=str(email))
         return False
     except:
-        return True
+        try:
+            User.objects.get(Username=str(username))
+            return False
+        except:
+            return True
+    return True
 
 
 def checkLogin(email, pas):
     try:
-        old = User.objects.get(email=str(email))
-        # print(old.password,str(pas))
-        if old.password == str(pas):
-            return True
-        return False
+        acc = User.objects.get(Email=str(email))
     except:
-        return False
+        try:
+            acc = User.objects.get(Username=str(email))
+        except:
+            return False
+    if acc.Password == str(pas):
+        return True
     return False
 
 
 def index(request):
     # assert isinstance(request, HttpRequest)
     if request.method == 'POST':
-        if checkSignUp(request.POST.get('fullname'),
-                       request.POST.get('email'),
-                       request.POST.get('password')):  # sign up
-            post = User()
-            post.fullname = request.POST.get('fullname')
-            post.email = request.POST.get('email')
-            post.password = request.POST.get('password')
-            post.save()
-            response = redirect('/signUp')
-            return response
-        elif checkLogin(request.POST.get('email'),
-                        request.POST.get('password')):  # sign in
-
-            response = redirect('/dashboard')
-            return response
+        # messages.add_message(request, messages.INFO, 'Hello world.')
+        if request.POST.get('username') and request.POST.get(
+                'email') and request.POST.get('password'):
+            if checkSignUp(request.POST.get('username'),
+                           request.POST.get('email'),
+                           request.POST.get('password')):
+                post = User()
+                post.Username = request.POST.get('username')
+                post.Email = request.POST.get('email')
+                post.Password = request.POST.get('password')
+                post.save()
+                response = redirect('/signUp')
+                return response
+            elif len(request.POST.get('password')) < 8:
+                messages.add_message(
+                    request, messages.INFO,
+                    'Your password must be at least 8 characters!')
+            else:
+                messages.add_message(
+                    request, messages.INFO,
+                    'That email or username is already taken, Try another!')
+        elif request.POST.get('email') and request.POST.get('password'):
+            if checkLogin(request.POST.get('email'),
+                          request.POST.get('password')):
+                response = redirect('/dashboard')
+                return response
+            else:
+                messages.add_message(request, messages.INFO,
+                                     'Wrong password or username!')
     else:
         return home(request)
     return home(request)

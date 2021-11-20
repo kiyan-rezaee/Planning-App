@@ -16,3 +16,7 @@ $(window).scroll(function () {
         $('#header').removeClass('add-shadow').removeClass('blur-bg');
     }
 });
+//closing notifications
+function hide(tag) {
+    $(tag).css("display", "none");
+}
