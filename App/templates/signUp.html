@@ -18,11 +18,13 @@
         <div class="container-lg text-center">
             <div class="row justify-content-around d-flex align-items-center">
                 <h1 class="form-title col-3">First Name</h1>
-                <input class="input-box col-8" type="text" placeholder="Firstname" name="Firstname" required />
+                <input class="input-box col-8" type="text" placeholder="Enter your first name" name="Firstname"
+                    required />
             </div>
             <div class="row justify-content-around d-flex align-items-center">
                 <h1 class="form-title col-3">Last Name</h1>
-                <input class="input-box col-8" type="text" placeholder="Lastname" name="Lastname" required />
+                <input class="input-box col-8" type="text" placeholder="Enter your last name" name="Lastname"
+                    required />
             </div>
             <div class="row justify-content-around d-flex align-items-center">
                 <h1 class="form-title col-3">Data of Birth</h1>
@@ -32,14 +34,14 @@
             <div class="row justify-content-around d-flex align-items-center">
                 <h1 class="form-title col-3">Course Count</h1>
                 <div class="col-12">
-                    <div class="value">1</div>
-                    <input id='counter' type="range" min="1" max="15" step="1" value="1" onchange="checkCourse()"
+                    <div class="value"></div>
+                    <input id='counter' type="range" min="1" max="15" step="1" value="3" onchange="checkCourse()"
                         required>
                 </div>
             </div>
             <div class="row titles">
                 <h1 class="form-title col-5 d-flex justify-content-around">Course Name</h1>
-                <h1 class="form-title col-7 d-flex justify-content-around">Select Priority</h1>
+                <h1 class="form-title col-7 d-flex justify-content-around">Course Priority</h1>
             </div>
             <div id="course"></div>
             <hr>

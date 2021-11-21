@@ -8,12 +8,25 @@ function checkCourse() {
     }
     document.getElementById('course').innerHTML = "";
     for (i = 0; i < x; i++) {
+        switch (i + 1) {
+            case 1:
+                suffix = 'st';
+                break;
+            case 2:
+                suffix = 'nd';
+                break;
+            case 3:
+                suffix = 'rd';
+                break;
+            default:
+                suffix = 'th';
+        };
         element = document.getElementById("course");
         element.innerHTML += `
         <div class="row py-3">
                 <div class="col-5 d-flex justify-content-around">
                 <input class="courseInput" type="text" name="${"course" + (i + 1).toString()}"
-                        placeholder="Enter course ${(i + 1).toString()} name">
+                        placeholder="Enter ${(i + 1).toString() + suffix} course name">
                 </div>
                 <div class="col-7 d-flex justify-content-around">
                     <div class="form-wrapper">
@@ -45,5 +58,6 @@ elem.addEventListener("input", rangeValue);
 
 //page ready function
 $(document).ready(function () {
+    document.querySelector('.value').innerHTML = document.querySelector('#counter').value;
     checkCourse();
 });
