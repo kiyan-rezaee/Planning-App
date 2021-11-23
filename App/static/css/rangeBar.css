@@ -5,14 +5,15 @@
 }
 
 .value {
-    border-bottom: 4px dashed var(--line-color);
+    /* border-bottom: 4px dashed var(--line-color); */
     text-align: center;
     font-weight: bold;
-    font-size: 10em;
+    font-size: 5em;
     width: 300px;
     height: 100px;
     line-height: 60px;
-    margin: 40px auto;
+    margin: auto;
+    margin-bottom: 40px;
     padding: 50px;
     letter-spacing: -0.07em;
     text-shadow: white var(--width-shadow-border) var(--width-shadow-border) var(--width-shadow-border);
