@@ -92,3 +92,12 @@ def signUp(request):
         'title': 'Sign Up Page',
         'year': datetime.now().year,
     })
+
+
+def profile(request):
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+    return render(request, 'profile.html', {
+        'title': 'Profile Page',
+        'year': datetime.now().year,
+    })
