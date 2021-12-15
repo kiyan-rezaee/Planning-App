@@ -1,0 +1,65 @@
+:root {
+    /* background */
+    --bg-log: #1d1b31;
+    --transition-time-cards: 0.4s;
+    --bg-cards2: #444444;
+}
+
+
+.bg {
+    background-color: var(--bg-cards2);
+    background-position: center;
+    background-size: cover;
+    color: white;
+
+
+    &#double {
+        background-image: url('/App/static/assets/img/double.jpg');
+    }
+
+    &#avatar {
+        background-image: url('../static/assets/img/rezaei.png');
+    }
+
+    &#username {
+        background-image: url('../static/assets/img/rezaei.png');
+    }
+
+    &#dark {
+        background-image: url('../static/assets/img/rezaei.png');
+    }
+
+    &#ml {
+        background-image: url('../static/assets/img/rezaei.png');
+    }
+
+
+}
+
+
+.card-trans {
+    margin: 10px 50px;
+    padding: 15px 10px;
+    background-color: var(--bg-cards2);
+    border-radius: 10px;
+    height: 250px;
+    // min-width: 300px;
+    width: auto;
+    overflow: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: all ease-out var(--transition-time-cards);
+
+    &:hover {
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+        transition: all ease-out var(--transition-time-cards);
+    }
+
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
