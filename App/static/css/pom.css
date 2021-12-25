@@ -34,10 +34,11 @@
   progress::-webkit-progress-bar {
     background-color: white;
   }
-  
+/*   
   progress::-webkit-progress-value {  
-   /* background-color: red; */
+    background-color: red;
   }
+*/
   
   .timer {
 

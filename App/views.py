@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 
+
+
 def checkSignUp(username, email, pas):
     try:
         User.objects.get(Email=str(email))
@@ -59,8 +61,7 @@ def index(request):
         elif request.POST.get('email') and request.POST.get('password'):
             if checkLogin(request.POST.get('email'),
                           request.POST.get('password')):
-                response = redirect('/dashboard')
-                return response
+                return dashboard(request,User.objects.get(Email=str(request.POST.get('email'))))
             else:
                 messages.add_message(request, messages.INFO,
                                      'Wrong password or username!')
@@ -76,13 +77,16 @@ def home(request):
     })
 
 
-def dashboard(request):
+def dashboard(request,user):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     return render(request, 'dashboard.html', {
         'title': 'Dashboard Page',
         'year': datetime.now().year,
-    })
+        'firstname': user.Username,
+        'lastname': user.Lastname,
+        'coin' : user.Coin
+        })
 
 
 def signUp(request):
