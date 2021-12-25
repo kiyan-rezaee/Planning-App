@@ -30,11 +30,11 @@ class User(models.Model):
 
 class Course(models.Model):
     user = models.ForeignKey(to=User, on_delete=CASCADE)
-    study_goal = models.IntegerField()
-    Total_time = models.IntegerField()
+    # study_goal = models.IntegerField()
+    Total_time = models.IntegerField(default=0)
     Priority = models.PositiveSmallIntegerField()
     Name = models.CharField(max_length=32, primary_key=True, unique=True)
-    Category = models.CharField(max_length=32)
+    # Category = models.CharField(max_length=32)
 
 
 class Store(models.Model):

@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from datetime import datetime
 from .models import User
+from .models import Course
 from django.shortcuts import redirect
 from django.contrib import messages
-
-
 
 
 def checkSignUp(username, email, pas):
@@ -47,8 +46,11 @@ def index(request):
                 post.Username = request.POST.get('username')
                 post.Email = request.POST.get('email')
                 post.Password = request.POST.get('password')
+                request.session['username'] = request.POST.get('username')
+                print(request)
                 post.save()
-                return signUp(request,post)
+                response = redirect('/signUp')
+                return response
             elif len(request.POST.get('password')) < 8:
                 messages.add_message(
                     request, messages.INFO,
@@ -60,7 +62,8 @@ def index(request):
         elif request.POST.get('email') and request.POST.get('password'):
             if checkLogin(request.POST.get('email'),
                           request.POST.get('password')):
-                return dashboard(request,User.objects.get(Email=str(request.POST.get('email'))))
+                response = redirect('/dashboard')
+                return response
             else:
                 messages.add_message(request, messages.INFO,
                                      'Wrong password or username!')
@@ -76,7 +79,8 @@ def home(request):
     })
 
 
-def dashboard(request,user):
+def dashboard(request):
+    user = User.objects.get(Username=str(request.session['username']))
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     return render(request, 'dashboard.html', {
@@ -84,30 +88,43 @@ def dashboard(request,user):
         'year': datetime.now().year,
         'firstname': user.Username,
         'lastname': user.Lastname,
-        'coin' : user.Coin
-        })
+        'coin': user.Coin
+    })
 
 
-
-def signUp(request,user):
-    if request.method == 'GET':
-        print(request.GET)
-        user.Firstname = request.GET.get('Firstname')
-        user.Lastname = request.GET.get('Lastname')
-        user.Dob = request.GET.get('DOB')
-
-
-
-
-
+def signUp(request):
+    user = User.objects.get(Username=str(request.session['username']))
+    print(user, 11111)
+    if request.method == 'POST':
+        if request.POST.get('Firstname'):
+            print(request.POST)
+            user.Firstname = request.POST.get('Firstname')
+            user.Lastname = request.POST.get('Lastname')
+            user.Dob = request.POST.get('DOB')
+            user.save()
+            i = 0
+            while True:
+                i += 1
+                if request.POST.get(f'course{i}'):
+                    post = Course()
+                    post.user = user
+                    post.Name = str(request.POST.get(f'course{i}') +"/"+ user.Username)
+                    post.Priority = request.POST.get(f'priority{i}')
+                    post.save()
+                else:
+                    break
+            request.session['username'] = user.Username
+            response = redirect('/dashboard')
+            return response
     assert isinstance(request, HttpRequest)
     return render(request, 'signUp.html', {
         'title': 'Sign Up Page',
-        'year': datetime.now().year,
+        'year': datetime.now().year
     })
 
 
 def profile(request):
+    user = User.objects.get(Username=str(request.session['username']))
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     return render(request, 'profile.html', {
