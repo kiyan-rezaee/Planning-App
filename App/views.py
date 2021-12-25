@@ -48,8 +48,7 @@ def index(request):
                 post.Email = request.POST.get('email')
                 post.Password = request.POST.get('password')
                 post.save()
-                response = redirect('/signUp')
-                return response
+                return signUp(request,post)
             elif len(request.POST.get('password')) < 8:
                 messages.add_message(
                     request, messages.INFO,
@@ -89,8 +88,18 @@ def dashboard(request,user):
         })
 
 
-def signUp(request):
-    """Renders the home page."""
+
+def signUp(request,user):
+    if request.method == 'GET':
+        print(request.GET)
+        user.Firstname = request.GET.get('Firstname')
+        user.Lastname = request.GET.get('Lastname')
+        user.Dob = request.GET.get('DOB')
+
+
+
+
+
     assert isinstance(request, HttpRequest)
     return render(request, 'signUp.html', {
         'title': 'Sign Up Page',
