@@ -34,7 +34,7 @@ const timer = {
     min.textContent = minutes;
     sec.textContent = seconds;
   
-    document.title = `${time} - Freshman Pomodoro Clock Demo`;
+    document.title = `${time} - Left`;
     const progress = document.getElementById('js-progress');
     progress.value = timer[timer.mode] * 60 - timer.remainingTime.total;
   }
@@ -107,7 +107,8 @@ const timer = {
       .getElementById('js-progress')
       .setAttribute('max', timer.remainingTime.total);
     document.body.style.backgroundColor = `var(--${mode})`;
-    $('#js-progress').style['-webkit-progress-value'].background = 'red';
+    document.querySelector('progressselector::-webkit-progress-bar').style.background =`var(--${mode})`;
+    document.styleSheets[0]
     updateClock();
   }
   
