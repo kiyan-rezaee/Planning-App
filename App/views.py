@@ -33,9 +33,7 @@ def checkLogin(info, pas):
 
 
 def index(request):
-    # assert isinstance(request, HttpRequest)
     if request.method == 'POST':
-        # messages.add_message(request, messages.INFO, 'Hello world.')
         if request.POST.get('username') and request.POST.get(
                 'email') and request.POST.get('password'):
             if checkSignUp(request.POST.get('username'),
@@ -46,7 +44,6 @@ def index(request):
                 post.Email = request.POST.get('email')
                 post.Password = request.POST.get('password')
                 request.session['username'] = request.POST.get('username')
-                # print(request)
                 post.save()
                 response = redirect('/signUp')
                 return response
