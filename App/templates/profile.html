@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="profile">
-                    <p>Hi, Kiyan Rezaee!</p>
+                    <p>{{ fullname }}</p>
                 </div>
             </div>
             <div class="col-6">
@@ -40,58 +40,60 @@
     <section id='main'>
         <div class="container-lg">
             <div class="row">
-                <div class="col-7">
-                    <div class="cards blue">
-                        <h1>123</h1>
-                        <p>123</p>
-                    </div>
-                </div>
                 <div class="col-5">
+                    <div class="cards blue">
+                        <h1>Firstname</h1>
+                        <p>{{ firstname }}</p>
+                    </div>
+                </div>
+                <div class="col-7">
                     <div class="cards">
-                        <h1>123</h1>
-                        <p>123</p>
+                        <h1>Lastname</h1>
+                        <p>{{ lastname }}</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4">
-                    <div class="cards">
-                        <h1>123</h1>
-                        <p>123</p>
-                    </div>
-                </div>
                 <div class="col-8">
+                    <div class="cards">
+                        <h1>Email</h1>
+                        <p>{{ email }}</p>
+                    </div>
+                </div>
+                <div class="col-4">
                     <div class="cards blue">
-                        <h1>123</h1>
-                        <p>123</p>
+                        <h1>Username</h1>
+                        <p>{{ username }}</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="cards blue">
-                        <h1>123</h1>
-                        <p>123</p>
+                        <h1>Age</h1>
+                        <p>{{ age }}</p>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="cards">
-                        <h1>123</h1>
-                        <p>123</p>
+                        <h1>Coin</h1>
+                    <p>{{ coin }}</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-3">
+                <!-- <div class="col-3">
                     <div class="cards">
                         <h1>123</h1>
                         <p>123</p>
                     </div>
-                </div>
-                <div class="col-9">
-                    <div class="cards blue">
-                        <h1>123</h1>
-                        <p>123</p>
+                </div> -->
+                <div class="col-12">
+                    <div class="cards">
+                        <h1>Active Courses</h1>
+                        {% for i in course%}
+                        <p>{{i}}</p>
+                        {%endfor%}
                     </div>
                 </div>
             </div>
