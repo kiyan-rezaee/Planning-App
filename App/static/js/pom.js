@@ -75,7 +75,7 @@ const timer = {
           new Notification(text);
         }
   
-        document.querySelector(`[data-sound="${timer.mode}"]`).play();
+        // document.querySelector(`[data-sound="${timer.mode}"]`).play();
         startTimer();
       }
     }, 1000);
@@ -107,7 +107,7 @@ const timer = {
       .getElementById('js-progress')
       .setAttribute('max', timer.remainingTime.total);
     document.body.style.backgroundColor = `var(--${mode})`;
-    // //document.querySelector('progressselector::-webkit-progress-bar').style.background =`var(--${mode})`;
+    document.querySelector('progressselector::-webkit-progress-bar').style.background =`var(--${mode})`;
     document.styleSheets[0]
     updateClock();
   }

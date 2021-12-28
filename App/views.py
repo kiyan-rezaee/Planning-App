@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-from datetime import datetime,date
+from datetime import datetime, date
 from .models import User
 from .models import Course
 from django.shortcuts import redirect
@@ -18,6 +18,7 @@ def checkSignUp(username, email, pas):
         except:
             return True
     return True
+
 
 def checkLogin(info, pas):
     try:
@@ -83,13 +84,14 @@ def dashboard(request):
         user = User.objects.get(Email=str(request.session['username']))
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    return render(request, 'dashboard.html', {
-        'title': 'Dashboard Page',
-        'year': datetime.now().year,
-        'firstname': user.Username,
-        'lastname': user.Lastname,
-        'coin': user.Coin
-    })
+    return render(
+        request, 'dashboard.html', {
+            'title': 'Dashboard Page',
+            'year': datetime.now().year,
+            'firstname': user.Username,
+            'lastname': user.Lastname,
+            'coin': user.Coin
+        })
 
 
 def signUp(request):
@@ -109,7 +111,8 @@ def signUp(request):
                 if request.POST.get(f'course{i}'):
                     post = Course()
                     post.user = user
-                    post.Name = str(request.POST.get(f'course{i}') +"/"+ user.Username)
+                    post.Name = str(
+                        request.POST.get(f'course{i}') + "/" + user.Username)
                     post.Priority = request.POST.get(f'priority{i}')
                     post.save()
                 else:
@@ -125,28 +128,44 @@ def signUp(request):
 
 
 def profile(request):
-    
     try:
         user = User.objects.get(Username=str(request.session['username']))
     except:
         user = User.objects.get(Email=str(request.session['username']))
-    """Renders the home page."""
-    li = [str(x.Name).replace(f'/{user.Username}','') for x in Course.objects.filter(user_id=user.Email)]
+    li = [
+        str(x.Name).replace(f'/{user.Username}', '')
+        for x in Course.objects.filter(user_id=user.Email)
+    ]
     assert isinstance(request, HttpRequest)
-    return render(request, 'profile.html', {
-        'title': 'Profile Page',
-        'year': datetime.now().year,
-        'fullname': f'Hi, {user.Firstname} {user.Lastname}',
-        'firstname': user.Firstname,
-        'lastname': user.Lastname,
-        'username': user.Username,
-        'email': user.Email,
-        'age': f'{(date.today()-user.Dob).days//365} Years Old!',
-        'coin': user.Coin,
-        'course': li
-    })
+    return render(
+        request, 'profile.html', {
+            'title': 'Profile Page',
+            'year': datetime.now().year,
+            'fullname': f'Hi, {user.Firstname} {user.Lastname}',
+            'firstname': user.Firstname,
+            'lastname': user.Lastname,
+            'username': user.Username,
+            'email': user.Email,
+            'age': f'{(date.today()-user.Dob).days//365} Years Old!',
+            'coin': user.Coin,
+            'course': li
+        })
+
+
 def pom(request):
-    return render(request, 'pom.html', {
-        'title': 'Home Page',
-        'year': datetime.now().year,
-    })
+    try:
+        user = User.objects.get(Username=str(request.session['username']))
+    except:
+        user = User.objects.get(Email=str(request.session['username']))
+    li = [
+        str(x.Name).replace(f'/{user.Username}', '')
+        for x in Course.objects.filter(user_id=user.Email)
+    ]
+    print(request.POST.get('selectedCourse'))
+    return render(
+        request, 'pom.html', {
+            'title': 'Home Page',
+            'year': datetime.now().year,
+            'username': user.Username,
+            'course': li
+        })
