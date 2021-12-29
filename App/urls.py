@@ -8,5 +8,5 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('pom/', views.pom, name="pom"),
     path('chart/', views.pom, name="chart"),
-    path('store/', views.pom, name="store"),
+    path('store/', views.store, name="store"),
 ]

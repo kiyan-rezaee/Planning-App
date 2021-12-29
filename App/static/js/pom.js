@@ -55,6 +55,7 @@ const timer = {
       total = timer.remainingTime.total;
       updateClock();
       if (total <= 0) {
+        stopTimer();
         clearInterval(interval);
   
         switch (timer.mode) {
@@ -68,7 +69,7 @@ const timer = {
           default:
             switchMode('pomodoro');
         }
-  
+        
         if (Notification.permission === 'granted') {
           const text =
             timer.mode === 'pomodoro' ? 'Get back to work!' : 'Take a break!';
@@ -76,20 +77,20 @@ const timer = {
         }
   
         // document.querySelector(`[data-sound="${timer.mode}"]`).play();
-        startTimer();
+        
       }
     }, 1000);
   }
   
   function stopTimer() {
     clearInterval(interval);
-  
     mainButton.dataset.action = 'start';
     mainButton.classList.remove('active');
     mainButton.classList.remove('red');
     mainButton.textContent = 'start';
+    postSearch(timer.remainingTime.total);
+}
 
-  }
   
   function switchMode(mode) {
     timer.mode = mode;
@@ -107,9 +108,10 @@ const timer = {
       .getElementById('js-progress')
       .setAttribute('max', timer.remainingTime.total);
     document.body.style.backgroundColor = `var(--${mode})`;
-    document.querySelector('progressselector::-webkit-progress-bar').style.background =`var(--${mode})`;
     document.styleSheets[0]
     updateClock();
+
+    
   }
   
   function handleMode(event) {
@@ -120,9 +122,10 @@ const timer = {
     timer.sessions = 0;
     switchMode(mode);
     stopTimer();
+
   }
   
-  const buttonSound = new Audio('button-sound.mp3');
+  const buttonSound = new Audio();
   const mainButton = document.getElementById('js-btn');
   mainButton.addEventListener('click', () => {
     const { action } = mainButton.dataset;
@@ -150,4 +153,30 @@ const timer = {
   
     switchMode('pomodoro');
   });
-  
+function postSearch(time = -1) {
+  if (time == -1) {
+    mode = timer.mode;
+    timer.remainingTime = {
+      total: timer[mode] * 60,
+      minutes: timer[mode],
+      seconds: 0,
+    };
+    updateClock();
+  }
+          $.ajax({
+              type: 'POST',
+              url: '/pom/',
+              data: {
+                'selectedCourse': $('#course option:selected').text(),
+                'time': time,
+                'mode':timer.mode,
+                'csrfmiddlewaretoken': CSRF_TOKEN,
+              },
+              success: function () {
+                console.log("success");
+              },
+              error: function () {
+                console.log("error");
+              }
+            })
+    };

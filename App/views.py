@@ -153,19 +153,81 @@ def profile(request):
 
 
 def pom(request):
+    time = 1500
     try:
         user = User.objects.get(Username=str(request.session['username']))
     except:
         user = User.objects.get(Email=str(request.session['username']))
+
     li = [
         str(x.Name).replace(f'/{user.Username}', '')
         for x in Course.objects.filter(user_id=user.Email)
     ]
-    print(request.POST.get('selectedCourse'))
+    if request.method == 'POST':
+        coursename = str(request.POST.get(
+            'selectedCourse') + "/" + user.Username)
+        course = Course.objects.get(Name=coursename)
+        try:
+            if (request.session['lastcourse'] == request.POST.get('selectedCourse') and
+                    request.POST.get('mode') == 'pomodoro' and request.session['coursekey']):
+                # print(1)
+                course.Total_time += request.session['lasttime'] - \
+                    int(request.POST.get('time'))
+                request.session['lasttime'] = int(request.POST.get('time'))
+                course.save()
+                # print(course.Total_time, request.session['lasttime'], int(
+                #     request.POST.get('time')))
+            elif request.POST.get('mode') == 'pomodoro' and int(request.POST.get('time')) != -1:
+                # print(2,request.POST.get('time'))
+                course.Total_time += time-int(request.POST.get('time'))
+                request.session['lastcourse'] = request.POST.get(
+                    'selectedCourse')
+                request.session['coursekey'] = True
+                request.session['lasttime'] = int(request.POST.get('time'))
+                course.save()
+            else:
+                # print(3)
+                request.session['coursekey'] = False
+        except:
+            if request.POST.get('mode') == 'pomodoro' and int(request.POST.get('time')) != -1:
+                # print(4)
+                # print(request.POST.get('time'))
+                course.Total_time += time-int(request.POST.get('time'))
+                request.session['lastcourse'] = request.POST.get(
+                    'selectedCourse')
+                request.session['coursekey'] = True
+                request.session['lasttime'] = int(request.POST.get('time'))
+                course.save()
+            else:
+                # print(5)
+                request.session['coursekey'] = False
+    else:
+        try:
+            del request.session['lastcourse']
+            del request.session['coursekey']
+            del request.session['lasttime']
+        except KeyError:
+            pass
     return render(
         request, 'pom.html', {
-            'title': 'Home Page',
+            'title': 'Pomodoro Page',
             'year': datetime.now().year,
             'username': user.Username,
             'course': li
+        })
+
+
+def store(request):
+    try:
+        user = User.objects.get(Username=str(request.session['username']))
+    except:
+        user = User.objects.get(Email=str(request.session['username']))
+    return render(
+        request, 'store.html', {
+            'title': 'Store Page',
+            'year': datetime.now().year,
+            'firstname': user.Firstname,
+            'lastname': user.Lastname,
+            'username': user.Username,
+            'coin': user.Coin,
         })

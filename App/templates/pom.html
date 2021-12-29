@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Pomodoro Timer</title>
+  <title>{{title}}</title>
   <link crossorigin="anonymous" rel="stylesheet" href="../static/css/pom.css" />
   <link crossorigin="anonymous" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
   <link crossorigin="anonymous" rel="stylesheet"
@@ -19,6 +19,7 @@
 </head>
 
 <body>
+  {% csrf_token %}
   <div class="container">
     <div class="row">
       <div class="col-3 usercourse">
@@ -33,7 +34,6 @@
           <option value={{i}}>{{i}}</option>
           {%endfor%}
         </select>
-
       </div>
     </div>
   </div>
@@ -65,31 +65,8 @@
     </div>
   </main>
 
+  <script>var CSRF_TOKEN = '{{ csrf_token }}';</script>
   <script crossorigin="anonymous" src="../static/js/pom.js"></script>
-  <!-- <script>
-    var select = document.getElementById('course');
-    var value = select.options[select.selectedIndex].value;
-
-    function postSearch() {
-      alert(value)
-      // $.post('{% csrf_token %} {% url "pom" %}', {
-      //   "selectedCourse": value,
-      // })
-      $.ajax({
-        type: "GET",
-        url: '{% csrf_token %} {% url "pom" %}',
-        data: {
-          "selectedCourse": value,
-        },
-        success: function () {
-          console.log("success");
-        },
-        failure: function () {
-          console.log("failure");
-        },
-      });
-    };
-  </script> -->
 </body>
 
 </html>
