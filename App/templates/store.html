@@ -14,6 +14,21 @@
 </head>
 
 <body>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="popup" role="alert">
+        <button type="button" data-dismiss="alert" onclick="hide('.popup')">
+            <i class="fas fa-times-circle"></i>
+        </button>
+        <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="popup" role="alert">
+        <button type="button" data-dismiss="alert" onclick="hide('.popup')">
+            <i class="fas fa-times-circle"></i>
+        </button>
+    </div>
     <div id="sidebar">
         <div class="logo-details">
             <i class='bx bxl-slack icon'></i>
@@ -67,7 +82,17 @@
                 <div class="col-md text-center align-self-center mx-2 my-3">
                     <div class="cards bg" id="double">
                         <h1>Double Coin</h1>
-                        <p>This is a paragraph</p>
+                        <p>You can earn double coin for your study time!</p>
+                        {% for i in messages %}
+                        <p>{{ i }}</p>
+                        {%endfor%}
+                        {% if doubleCoin %}
+                        <p>Remaining Time: {{ doubleCoinTime }}</p>
+                        {% else %}
+                        <button onclick="doubleCoin({{ coin }} ,100)">Active for 2 Days - 100$</button>
+                        <button onclick="doubleCoin({{ coin }} ,500)">Active for 2 Weeks - 500$</button>
+                        <button onclick="doubleCoin({{ coin }} ,800)">Active for 1 Month - 800$</button>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md text-center align-self-center mx-2 my-3">
@@ -81,15 +106,18 @@
                         <h1>Edit Username</h1>
                         <p>You can spend 1000 coins to edit your username</p>
                         <input type="text" style="display:none" class="usernameInput" id="newUsername" placeholder="new username">
-                        <button onclick="changeUsername()" style='display:none' class="usernameInput">Submit</button>
+                        <button onclick="changeUsername()" style='display:none' class="usernameInput" >Submit</button>
                     </div>
                 </div>
             </div>
             <div class="row py-2 align-items-center justify-content-center row-cols-auto">
-                <div class="col-md text-center align-self-center mx-2 my-3">
-                    <div class="cards bg" id="dark">
+                <div class="col-md text-center align-self-center mx-2 my-3 ">
+                    <div class="cards bg" id="dark" onclick="checkDarkmode({{ coin }})">
                         <h1>Dark mode</h1>
-                        <p>This is a paragraph</p>
+                        <p>You can buy and active dark mode</p>
+                        <!-- {% if darkmode %} -->
+                        <button >switch here</button>
+                        <!-- {% endif %} -->
                     </div>
                 </div>
                 <div class="col-md text-center align-self-center mx-2 my-3">

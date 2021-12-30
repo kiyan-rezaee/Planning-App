@@ -29,7 +29,7 @@
       <div class="col-3"></div>
       <div class="col-3 usercourse">
         <label for="course">Choose a Course:</label>
-        <select onchange="postSearch()" name="course" id="course">
+        <select class="selectpicker" onchange="postSearch()" name="course" id="course">
           {% for i in course%}
           <option value={{i}}>{{i}}</option>
           {%endfor%}

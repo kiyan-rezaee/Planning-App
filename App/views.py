@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-from datetime import datetime, date
+from datetime import datetime, date,timedelta
 from .models import User
+from .models import Store
 from .models import Course
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -105,6 +106,9 @@ def signUp(request):
             user.Lastname = request.POST.get('Lastname')
             user.Dob = request.POST.get('DOB')
             user.save()
+            store = Store()
+            store.user = user
+            store.save()
             i = 0
             while True:
                 i += 1
@@ -222,6 +226,49 @@ def store(request):
         user = User.objects.get(Username=str(request.session['username']))
     except:
         user = User.objects.get(Email=str(request.session['username']))
+    if request.method == 'POST':
+        if request.POST.get('code') == 'username':
+            try:
+                user.Username = request.POST.get('newUsername')
+                user.save()
+            except Exception as a:
+                messages.add_message(
+                    request, messages.INFO,
+                    'That username is already taken, Try another!')
+        elif request.POST.get('code') == 'doubleCoin':
+            mode = int(request.POST.get('mode'))
+            user.store.Doublecoin = True
+            if mode == 100:
+                user.Coin -= 100
+                user.store.Doublecoin_time = timedelta(days=2)+datetime.now()
+                user.store.save()
+                user.save()
+            elif mode == 500:
+                user.Coin -= 500
+                user.store.Doublecoin_time = timedelta(days=14)+datetime.now()
+                user.store.save()
+                user.save()
+            elif mode == 800:
+                user.Coin -= 800
+                user.store.Doublecoin_time = timedelta(days=31)+datetime.now()
+                user.store.save()
+                user.save()
+        elif request.POST.get('code') == 'darkMode':
+            if user.store.dark_mode:
+                messages.add_message(
+                    request, messages.INFO,
+                    'You already bought it before')
+            user.Coin -= 500
+            user.store.dark_mode = True
+            user.save()
+        elif request.POST.get('code') == 'avatar':
+            user.store.avatar = request.POST.get('avatar')
+            user.save()
+        elif request.POST.get('code') == 'ml':
+            pass
+            # user.save()
+    else:
+        pass
     return render(
         request, 'store.html', {
             'title': 'Store Page',
@@ -230,4 +277,8 @@ def store(request):
             'lastname': user.Lastname,
             'username': user.Username,
             'coin': user.Coin,
+            'doubleCoin':user.store.Doublecoin,
+            'doubleCoinTime':user.store.Doublecoin_time,
+            'allUsernames': [x.Username for x in User.objects.all()]
+            
         })

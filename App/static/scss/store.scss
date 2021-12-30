@@ -1,65 +1,90 @@
 :root {
-    /* background */
-    --bg-log: #1d1b31;
-    --transition-time-cards: 0.4s;
-    --bg-cards2: #444444;
+  --bg-log: #1d1b31;
+  --transition-time-cards: 0.4s;
+  --bg-cards2: #444444;
 }
-
 
 .bg {
-    background-color: var(--bg-cards2);
-    background-position: center;
-    background-size: cover;
-    color: white;
+  background-color: var(--bg-cards2);
+  background-position: center;
+  background-size: cover;
+  color: white;
 
+  &#double {
+    background-image: url("/App/static/assets/img/double.jpg");
+  }
 
-    &#double {
-        background-image: url('/App/static/assets/img/double.jpg');
-    }
+  &#avatar {
+    background-image: url("../static/assets/img/rezaei.png");
+  }
 
-    &#avatar {
-        background-image: url('../static/assets/img/rezaei.png');
-    }
+  &#username {
+    background-image: url("../static/assets/img/rezaei.png");
+  }
 
-    &#username {
-        background-image: url('../static/assets/img/rezaei.png');
-    }
+  &#dark {
+    background-image: url("../static/assets/img/rezaei.png");
+  }
 
-    &#dark {
-        background-image: url('../static/assets/img/rezaei.png');
-    }
+  &#ml {
+    background-image: url("../static/assets/img/rezaei.png");
+  }
+}
 
-    &#ml {
-        background-image: url('../static/assets/img/rezaei.png');
-    }
+.card-trans {
+  margin: 10px 50px;
+  padding: 15px 10px;
+  background-color: var(--bg-cards2);
+  border-radius: 10px;
+  height: 250px;
+  // min-width: 300px;
+  width: auto;
+  overflow: auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: all ease-out var(--transition-time-cards);
 
+  &:hover {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    transition: all ease-out var(--transition-time-cards);
+  }
+
+  h1 {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+.popup {
+  position: absolute;
+  background-color: rgb(190, 38, 38);
+  color: white;
+  border-radius: 10px;
+  text-align: left;
+  z-index: 99;
+  left: 10px;
+  top: 10px;
+  padding: 10px;
+  height: auto;
+  width: calc(100px + 10vw);
+  font-size: 16px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  transition: all 1s ease-in;
+button {
+  font-size: 24px;
+  color: white;
+  z-index: 100;
+  background-color: transparent;
+span {
+  z-index: 101;
+}
 
 }
 
-
-.card-trans {
-    margin: 10px 50px;
-    padding: 15px 10px;
-    background-color: var(--bg-cards2);
-    border-radius: 10px;
-    height: 250px;
-    // min-width: 300px;
-    width: auto;
-    overflow: auto;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transition: all ease-out var(--transition-time-cards);
-
-    &:hover {
-        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-        transition: all ease-out var(--transition-time-cards);
-    }
-
-    h1 {
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    p {
-        font-size: 16px;
-    }
 }
