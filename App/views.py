@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-from datetime import datetime, date,timedelta
+from datetime import datetime, date, timedelta
 from .models import User
 from .models import Store
 from .models import Course
@@ -152,6 +152,7 @@ def profile(request):
             'email': user.Email,
             'age': f'{(date.today()-user.Dob).days//365} Years Old!',
             'coin': user.Coin,
+            'avatar': str(user.store.avatar),
             'course': li
         })
 
@@ -168,12 +169,14 @@ def pom(request):
         for x in Course.objects.filter(user_id=user.Email)
     ]
     if request.method == 'POST':
-        coursename = str(request.POST.get(
-            'selectedCourse') + "/" + user.Username)
+        coursename = str(
+            request.POST.get('selectedCourse') + "/" + user.Username)
         course = Course.objects.get(Name=coursename)
         try:
-            if (request.session['lastcourse'] == request.POST.get('selectedCourse') and
-                    request.POST.get('mode') == 'pomodoro' and request.session['coursekey']):
+            if (request.session['lastcourse']
+                    == request.POST.get('selectedCourse')
+                    and request.POST.get('mode') == 'pomodoro'
+                    and request.session['coursekey']):
                 # print(1)
                 course.Total_time += request.session['lasttime'] - \
                     int(request.POST.get('time'))
@@ -181,9 +184,10 @@ def pom(request):
                 course.save()
                 # print(course.Total_time, request.session['lasttime'], int(
                 #     request.POST.get('time')))
-            elif request.POST.get('mode') == 'pomodoro' and int(request.POST.get('time')) != -1:
+            elif request.POST.get('mode') == 'pomodoro' and int(
+                    request.POST.get('time')) != -1:
                 # print(2,request.POST.get('time'))
-                course.Total_time += time-int(request.POST.get('time'))
+                course.Total_time += time - int(request.POST.get('time'))
                 request.session['lastcourse'] = request.POST.get(
                     'selectedCourse')
                 request.session['coursekey'] = True
@@ -193,10 +197,11 @@ def pom(request):
                 # print(3)
                 request.session['coursekey'] = False
         except:
-            if request.POST.get('mode') == 'pomodoro' and int(request.POST.get('time')) != -1:
+            if request.POST.get('mode') == 'pomodoro' and int(
+                    request.POST.get('time')) != -1:
                 # print(4)
                 # print(request.POST.get('time'))
-                course.Total_time += time-int(request.POST.get('time'))
+                course.Total_time += time - int(request.POST.get('time'))
                 request.session['lastcourse'] = request.POST.get(
                     'selectedCourse')
                 request.session['coursekey'] = True
@@ -240,29 +245,31 @@ def store(request):
             user.store.Doublecoin = True
             if mode == 100:
                 user.Coin -= 100
-                user.store.Doublecoin_time = timedelta(days=2)+datetime.now()
+                user.store.Doublecoin_time = timedelta(days=2) + datetime.now()
                 user.store.save()
                 user.save()
             elif mode == 500:
                 user.Coin -= 500
-                user.store.Doublecoin_time = timedelta(days=14)+datetime.now()
+                user.store.Doublecoin_time = timedelta(
+                    days=14) + datetime.now()
                 user.store.save()
                 user.save()
             elif mode == 800:
                 user.Coin -= 800
-                user.store.Doublecoin_time = timedelta(days=31)+datetime.now()
+                user.store.Doublecoin_time = timedelta(
+                    days=31) + datetime.now()
                 user.store.save()
                 user.save()
         elif request.POST.get('code') == 'darkMode':
             if user.store.dark_mode:
-                messages.add_message(
-                    request, messages.INFO,
-                    'You already bought it before')
+                messages.add_message(request, messages.INFO,
+                                     'You already bought it before')
             user.Coin -= 500
             user.store.dark_mode = True
             user.save()
         elif request.POST.get('code') == 'avatar':
-            user.store.avatar = request.POST.get('avatar')
+            user.store.avatar = request.POST.get('avatarCode')
+            user.store.save()
             user.save()
         elif request.POST.get('code') == 'ml':
             pass
@@ -277,8 +284,8 @@ def store(request):
             'lastname': user.Lastname,
             'username': user.Username,
             'coin': user.Coin,
-            'doubleCoin':user.store.Doublecoin,
-            'doubleCoinTime':user.store.Doublecoin_time,
+            'doubleCoin': user.store.Doublecoin,
+            'doubleCoinTime': user.store.Doublecoin_time,
+            'avatarsCount': range(1, 17),
             'allUsernames': [x.Username for x in User.objects.all()]
-            
         })

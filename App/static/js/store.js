@@ -1,33 +1,41 @@
-var newCoin = 0;
-function showUsername(coin) {
-        window.newCoin = coin;
-    if (coin >= 1000) {
-        // window.newCoin -= 1000;
-        $('#username').prop("onclick", null).off("click");
-        $('.usernameInput').css("display", "flex");
-    }
+function hide(tag) {
+  $(tag).css("opacity", "0");
+  setTimeout(function () {
+    $(tag).css("display", "none");
+  }, 200);
 }
-function changeUsername(){
-          $.ajax({
-              type: 'POST',
-              url: '/store/',
-              data: {
-                'code': 'username',
-                'newUsername':$('#newUsername').val(), 
-                  // 'newCoin': window.newCoin,
-                  'csrfmiddlewaretoken': CSRF_TOKEN,
-              },
-              success: function () {
-                console.log("success");
-              },
-              error: function () {
-                console.log("error");
-              }
-            })
-    };
-function checkDarkmode(coin)
-{
-  if (coin >= 100) {
+function show(tag) {
+  $(tag).css("opacity", "1");
+  setTimeout(function () {
+    $(tag).css("display", "block");
+  }, 200);
+}
+
+function showUsername() {
+  if (COIN >= 1000) {
+    $('#username').prop("onclick", null).off("click");
+    $('.usernameInput').css("display", "flex");
+  }
+}
+function changeUsername() {
+  $.ajax({
+    type: 'POST',
+    url: '/store/',
+    data: {
+      'code': 'username',
+      'newUsername': $('#newUsername').val(),
+      'csrfmiddlewaretoken': CSRF_TOKEN,
+    },
+    success: function () {
+      console.log("success");
+    },
+    error: function () {
+      console.log("error");
+    }
+  })
+};
+function checkDarkmode() {
+  if (COIN >= 500) {
     $.ajax({
       type: 'POST',
       url: '/store/',
@@ -45,13 +53,22 @@ function checkDarkmode(coin)
   }
 };
 
-function changeavatar(coin)
-{
-  if (coin >= 1000) {
+function changeAvatar(value = 0, key = true) {
+  tag = '.avatar'
+  if (!key) {
+    if (COIN >= 200) {
+      show(tag);
+    }
+    else {
+      alert("You don't have enough coins!")
+    }
+  }
+  else {
     $.ajax({
       type: 'POST',
       url: '/store/',
       data: {
+        'avatarCode': value,
         'code': 'avatar',
         'csrfmiddlewaretoken': CSRF_TOKEN,
       },
@@ -61,12 +78,13 @@ function changeavatar(coin)
       error: function () {
         console.log("error");
       }
-    })
+    });
+    hide(tag);
   }
 };
 
-function doubleCoin(coin,price) {
-  if (coin >= price) {
+function doubleCoin(price) {
+  if (COIN >= price) {
     $.ajax({
       type: 'POST',
       url: '/store/',

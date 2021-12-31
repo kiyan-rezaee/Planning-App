@@ -18,5 +18,8 @@ $(window).scroll(function () {
 });
 //closing notifications
 function hide(tag) {
-    $(tag).css("display", "none");
+    $(tag).css("opacity", "0");
+    setTimeout(function () {
+        $(tag).css("display", "none");
+    }, 1000);
 }

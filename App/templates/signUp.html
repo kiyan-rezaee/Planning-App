@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Studier/SignUp</title>
+    <title>{{title}}</title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://pro.fontawesome.com/releases/v5.15.4/css/all.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' rel='stylesheet'>
@@ -15,53 +15,53 @@
 
 <body>
     <section class="bodysec">
-        <form method="POST" >
+        <form method="POST">
             {% csrf_token %}
-        <div class="container-lg text-center">
-            <div class="row justify-content-around d-flex align-items-center">
-                <h1 class="form-title form-header col-3">Registration Page</h1>
-            </div>
-            <hr>
-            <div class="row justify-content-around d-flex align-items-center">
-                <h1 class="form-title col-3">First Name</h1>
-                <input class="input-box col-8" type="text" placeholder="Enter your first name" name="Firstname"
-                    required />
-            </div>
-            <div class="row justify-content-around d-flex align-items-center">
-                <h1 class="form-title col-3">Last Name</h1>
-                <input class="input-box col-8" type="text" placeholder="Enter your last name" name="Lastname"
-                    required />
-            </div>
-            <div class="row justify-content-around d-flex align-items-center">
-                <h1 class="form-title col-3">Data of Birth</h1>
-                <input id="date" class="input-box col-8" type="date" min="1930-01-01" name="DOB" required />
-            </div>
-            <hr>
-            <div class="row justify-content-around d-flex align-items-center">
-                <h1 class="form-title col-3">Course Count</h1>
-                <div class="col-12">
-                    <div class="value"></div>
-                    <input id='counter' type="range" min="1" max="15" step="1" value="3" onchange="checkCourse()"
-                        required>
+            <div class="container-lg text-center">
+                <div class="row justify-content-around d-flex align-items-center">
+                    <h1 class="form-title form-header col-3">Registration Page</h1>
                 </div>
-            </div>
-            <div class="row titles">
-                <h1 class="form-title col-5 d-flex justify-content-around">Course Name</h1>
-                <h1 class="form-title col-7 d-flex justify-content-around">Course Priority</h1>
-            </div>
-            <div id="course"></div>
-            <hr>
-            <div class="row justify-content-around d-flex align-items-center">
-                <div class="col-6">
-                    
-                        
-                        <button  class="btn-next text-center">Next 
+                <hr>
+                <div class="row justify-content-around d-flex align-items-center">
+                    <h1 class="form-title col-3">First Name</h1>
+                    <input class="input-box col-8" type="text" placeholder="Enter your first name" name="Firstname"
+                        required />
+                </div>
+                <div class="row justify-content-around d-flex align-items-center">
+                    <h1 class="form-title col-3">Last Name</h1>
+                    <input class="input-box col-8" type="text" placeholder="Enter your last name" name="Lastname"
+                        required />
+                </div>
+                <div class="row justify-content-around d-flex align-items-center">
+                    <h1 class="form-title col-3">Data of Birth</h1>
+                    <input id="date" class="input-box col-8" type="date" min="1930-01-01" name="DOB" required />
+                </div>
+                <hr>
+                <div class="row justify-content-around d-flex align-items-center">
+                    <h1 class="form-title col-3">Course Count</h1>
+                    <div class="col-12">
+                        <div class="value"></div>
+                        <input id='counter' type="range" min="1" max="15" step="1" value="3" onchange="checkCourse()"
+                            required>
+                    </div>
+                </div>
+                <div class="row titles">
+                    <h1 class="form-title col-5 d-flex justify-content-around">Course Name</h1>
+                    <h1 class="form-title col-7 d-flex justify-content-around">Course Priority</h1>
+                </div>
+                <div id="course"></div>
+                <hr>
+                <div class="row justify-content-around d-flex align-items-center">
+                    <div class="col-6">
+
+
+                        <button class="btn-next text-center">Next
                             <b><i class="fas fa-chevron-right"></i></b>
                         </button>
-                    
+
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </section>
 

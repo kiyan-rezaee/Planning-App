@@ -24,10 +24,22 @@
     </div>
     {% endfor %}
     {% endif %}
-    <div class="popup" role="alert">
-        <button type="button" data-dismiss="alert" onclick="hide('.popup')">
-            <i class="fas fa-times-circle"></i>
-        </button>
+    <div class="avatar">
+        <div class="container">
+            <div class="row py-4 align-items-center justify-content-center row-cols-auto">
+                <p class="col-xl text-center align-self-center mx-2 mt-3">
+                    Choose one of the avatars below
+                </p>
+            </div>
+            <div class="row pb-4 align-items-center justify-content-center row-cols-auto">
+                {% for avatar in avatarsCount%}
+                <div class="col-3 text-center align-self-center mx-auto my-3">
+                    <img src="../static/assets/avatar/{{avatar}}.png" alt="Avatar {{avatar}}"
+                        onclick="changeAvatar({{avatar}},true)">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <div id="sidebar">
         <div class="logo-details">
@@ -89,35 +101,34 @@
                         {% if doubleCoin %}
                         <p>Remaining Time: {{ doubleCoinTime }}</p>
                         {% else %}
-                        <button onclick="doubleCoin({{ coin }} ,100)">Active for 2 Days - 100$</button>
-                        <button onclick="doubleCoin({{ coin }} ,500)">Active for 2 Weeks - 500$</button>
-                        <button onclick="doubleCoin({{ coin }} ,800)">Active for 1 Month - 800$</button>
+                        <button onclick="doubleCoin(100)">Active for 2 Days - 100$</button>
+                        <button onclick="doubleCoin(500)">Active for 2 Weeks - 500$</button>
+                        <button onclick="doubleCoin(800)">Active for 1 Month - 800$</button>
                         {% endif %}
                     </div>
                 </div>
                 <div class="col-md text-center align-self-center mx-2 my-3">
-                    <div class="cards bg" id="avatar">
+                    <div class="cards bg" id="avatar" onclick="changeAvatar(0,false)">
                         <h1>Avatar</h1>
                         <p>This is a paragraph</p>
                     </div>
                 </div>
                 <div class="col-md text-center align-self-center mx-2 my-3">
-                    <div class="cards bg" id="username" onclick="showUsername({{ coin }})">
+                    <div class="cards bg" id="username" onclick="showUsername()">
                         <h1>Edit Username</h1>
                         <p>You can spend 1000 coins to edit your username</p>
-                        <input type="text" style="display:none" class="usernameInput" id="newUsername" placeholder="new username">
-                        <button onclick="changeUsername()" style='display:none' class="usernameInput" >Submit</button>
+                        <input type="text" style="display:none" class="usernameInput" id="newUsername"
+                            placeholder="new username">
+                        <button onclick="changeUsername()" style='display:none' class="usernameInput">Submit</button>
                     </div>
                 </div>
             </div>
             <div class="row py-2 align-items-center justify-content-center row-cols-auto">
                 <div class="col-md text-center align-self-center mx-2 my-3 ">
-                    <div class="cards bg" id="dark" onclick="checkDarkmode({{ coin }})">
+                    <div class="cards bg" id="dark" onclick="checkDarkmode()">
                         <h1>Dark mode</h1>
                         <p>You can buy and active dark mode</p>
-                        <!-- {% if darkmode %} -->
-                        <button >switch here</button>
-                        <!-- {% endif %} -->
+                        <button>switch here</button>
                     </div>
                 </div>
                 <div class="col-md text-center align-self-center mx-2 my-3">
@@ -161,7 +172,10 @@
             </div>
         </div>
     </section>
-    <script>var CSRF_TOKEN = '{{ csrf_token }}';</script>
+    <script>
+        var CSRF_TOKEN = '{{ csrf_token }}';
+        var COIN = '{{ coin }}';
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/store.js"></script>
