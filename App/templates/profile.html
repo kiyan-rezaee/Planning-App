@@ -31,10 +31,12 @@
                     <p>{{ fullname }}</p>
                 </div>
             </div>
+            <a href="{% url 'dashboard' %}" style="outline: none;">
             <div class="col-6">
-                <button class="button button-exit pos-fixed">Log Out <b><i class='bx bx-log-out' id="log_out"></i></b>
+                <button class="button button-exit pos-fixed">back <b><i class='bx bx-back' id="log_out"></i></b>
                 </button>
             </div>
+        </a>
         </div>
     </div>
     <section id='main'>
@@ -82,14 +84,14 @@
                 </div>
             </div>
             <div class="row">
-                <!-- <div class="col-3">
+                <div class="col-5">
                     <div class="cards">
-                        <h1>123</h1>
-                        <p>123</p>
+                        <h1>Total Studied Time</h1>
+                        <p>{{sum_pom}} minutes</p>
                     </div>
-                </div> -->
-                <div class="col-12">
-                    <div class="cards">
+                </div>
+                <div class="col-7">
+                    <div class="cards blue">
                         <h1>Active Courses</h1>
                         {% for i in course%}
                         <p>{{i}}</p>

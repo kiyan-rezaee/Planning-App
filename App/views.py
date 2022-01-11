@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from datetime import datetime, date, timedelta
-from .models import User
-from .models import Store
-from .models import Course
+from .models import User, Store, Course, Pom
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -73,7 +71,7 @@ def index(request):
 
 def home(request):
     return render(request, 'index.html', {
-        'title': 'Home Page',
+        'title': 'Studier',
         'year': datetime.now().year,
     })
 
@@ -83,7 +81,7 @@ def dashboard(request):
         user = User.objects.get(Username=str(request.session['username']))
     except:
         user = User.objects.get(Email=str(request.session['username']))
-    """Renders the home page."""
+    """Renders the dashboard page."""
     assert isinstance(request, HttpRequest)
     return render(
         request, 'dashboard.html', {
@@ -91,7 +89,8 @@ def dashboard(request):
             'year': datetime.now().year,
             'firstname': user.Username,
             'lastname': user.Lastname,
-            'coin': user.Coin
+            'coin': user.Coin,
+            'username': user.Username
         })
 
 
@@ -140,6 +139,10 @@ def profile(request):
         str(x.Name).replace(f'/{user.Username}', '')
         for x in Course.objects.filter(user_id=user.Email)
     ]
+    sum_pom = sum([
+        x['Pom_count']
+        for x in Course.objects.filter(user_id=user.Email).values('Pom_count')
+    ]) * 25
     assert isinstance(request, HttpRequest)
     return render(
         request, 'profile.html', {
@@ -150,19 +153,23 @@ def profile(request):
             'lastname': user.Lastname,
             'username': user.Username,
             'email': user.Email,
-            'age': f'{(date.today()-user.Dob).days//365} Years Old!',
+            'age': f'You Are {(date.today()-user.Dob).days//365} Years Old!',
             'coin': user.Coin,
             'avatar': str(user.store.avatar),
-            'course': li
+            'course': li,
+            'sum_pom': sum_pom
         })
 
 
 def pom(request):
-    time = 1500
     try:
         user = User.objects.get(Username=str(request.session['username']))
     except:
         user = User.objects.get(Email=str(request.session['username']))
+    li = [
+        str(x.Name).replace(f'/{user.Username}', '')
+        for x in Course.objects.filter(user_id=user.Email)
+    ]
 
     li = [
         str(x.Name).replace(f'/{user.Username}', '')
@@ -172,48 +179,52 @@ def pom(request):
         coursename = str(
             request.POST.get('selectedCourse') + "/" + user.Username)
         course = Course.objects.get(Name=coursename)
+        request.POST.get('mode')
+        # request.POST.get('selectedCourse')
+        # request.POST.get('time')/25
         try:
-            if (request.session['lastcourse']
-                    == request.POST.get('selectedCourse')
-                    and request.POST.get('mode') == 'pomodoro'
-                    and request.session['coursekey']):
-                # print(1)
-                course.Total_time += request.session['lasttime'] - \
-                    int(request.POST.get('time'))
-                request.session['lasttime'] = int(request.POST.get('time'))
-                course.save()
-                # print(course.Total_time, request.session['lasttime'], int(
-                #     request.POST.get('time')))
-            elif request.POST.get('mode') == 'pomodoro' and int(
-                    request.POST.get('time')) != -1:
-                # print(2,request.POST.get('time'))
-                course.Total_time += time - int(request.POST.get('time'))
-                request.session['lastcourse'] = request.POST.get(
-                    'selectedCourse')
-                request.session['coursekey'] = True
-                request.session['lasttime'] = int(request.POST.get('time'))
-                course.save()
+            if request.session['lastcourse'] == request.POST.get(
+                    'selectedCourse'):
+                if request.POST.get('time') == 0:
+                    # course.Total_time += request.session['lasttime'] - \
+                    # int(request.POST.get('time'))
+                    request.session['lastpom'].Time = 1500 - request.POST.get(
+                        'time')
+                    request.session['lastpom'].Date = datetime.now()
+                    request.session['lastpom'].Rating = 5
+                    request.session['lastpom'].save()
+                    del request.session['lastcourse']
+                    del request.session['lastpom']
+                else:
+                    request.session['lastpom'].Time += (
+                        request.session['lasttime'] -
+                        int(request.POST.get('time')))
+                    request.session['lastpom'].Date = datetime.now()
+                    request.session['lastpom'].Rating = 5
+                    request.session['lastpom'].save()
             else:
-                # print(3)
-                request.session['coursekey'] = False
+                del request.session['lastpom']
         except:
-            if request.POST.get('mode') == 'pomodoro' and int(
-                    request.POST.get('time')) != -1:
-                # print(4)
-                # print(request.POST.get('time'))
-                course.Total_time += time - int(request.POST.get('time'))
-                request.session['lastcourse'] = request.POST.get(
-                    'selectedCourse')
-                request.session['coursekey'] = True
-                request.session['lasttime'] = int(request.POST.get('time'))
-                course.save()
+            request.session['lastpom'] = Pom()
+            request.session['lastcourse'] = request.POST.get('selectedCourse')
+            if request.POST.get('time') == 0:
+                request.session['lastpom'].Time = 1500 - request.POST.get(
+                    'time')
+                request.session['lastpom'].Date = datetime.now()
+                request.session['lastpom'].Rating = 5
+                request.session['lastpom'].save()
+                del request.session['lastcourse']
+                del request.session['lastpom']
             else:
-                # print(5)
-                request.session['coursekey'] = False
+                request.session['lastpom'].Time = 1500 - int(
+                    request.POST.get('time'))
+                request.session['lasttime'] = int(request.POST.get('time'))
+                request.session['lastpom'].Date = datetime.now()
+                request.session['lastpom'].Rating = 5
+                request.session['lastpom'].save()
     else:
         try:
             del request.session['lastcourse']
-            del request.session['coursekey']
             del request.session['lasttime']
         except KeyError:
             pass
@@ -222,7 +233,10 @@ def pom(request):
             'title': 'Pomodoro Page',
             'year': datetime.now().year,
             'username': user.Username,
-            'course': li
+            'course': li,
+            'firstname': user.Username,
+            'lastname': user.Lastname,
+            'coin': user.Coin
         })
 
 
@@ -234,6 +248,11 @@ def store(request):
     if request.method == 'POST':
         if request.POST.get('code') == 'username':
             try:
+                for x in Course.objects.filter(user_id=user.Email):
+                    x.Name = str(
+                        str(x.Name).replace(f'/{user.Username}', '') + "/" +
+                        user.Username)
+                    x.save()
                 user.Username = request.POST.get('newUsername')
                 user.save()
             except Exception as a:
@@ -288,4 +307,22 @@ def store(request):
             'doubleCoinTime': user.store.Doublecoin_time,
             'avatarsCount': range(1, 17),
             'allUsernames': [x.Username for x in User.objects.all()]
+        })
+
+
+def analysis(request):
+    try:
+        user = User.objects.get(Username=str(request.session['username']))
+    except:
+        user = User.objects.get(Email=str(request.session['username']))
+    """Renders the analysis page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request, 'analysis.html', {
+            'title': 'Analysis Page',
+            'year': datetime.now().year,
+            'firstname': user.Username,
+            'lastname': user.Lastname,
+            'coin': user.Coin,
+            'username': user.Username
         })

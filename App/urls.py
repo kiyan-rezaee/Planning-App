@@ -9,4 +9,5 @@ urlpatterns = [
     path('pom/', views.pom, name="pom"),
     path('chart/', views.pom, name="chart"),
     path('store/', views.store, name="store"),
+    path('analysis/', views.analysis, name="analysis"),
 ]
