@@ -60,5 +60,5 @@ class Pom(models.Model):
     course = models.ForeignKey(to=Course, on_delete=CASCADE)
     Pid = models.AutoField(primary_key=True, unique=True)
     Date = models.DateField()
-    Time = models.TimeField()
+    Time = models.IntegerField()
     Rating = models.IntegerField()

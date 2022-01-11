@@ -183,45 +183,48 @@ def pom(request):
         # request.POST.get('selectedCourse')
         # request.POST.get('time')/25
         try:
+            new_pom = 
             if request.session['lastcourse'] == request.POST.get(
                     'selectedCourse'):
                 if request.POST.get('time') == 0:
                     # course.Total_time += request.session['lasttime'] - \
                     # int(request.POST.get('time'))
-                    request.session['lastpom'].Time = 1500 - request.POST.get(
+                    new_pom.Time = 1500 - request.POST.get(
                         'time')
-                    request.session['lastpom'].Date = datetime.now()
-                    request.session['lastpom'].Rating = 5
-                    request.session['lastpom'].save()
+                    new_pom.Date = datetime.now()
+                    new_pom.Rating = 5
+                    new_pom.save()
                     del request.session['lastcourse']
-                    del request.session['lastpom']
+                    del new_pom
                 else:
-                    request.session['lastpom'].Time += (
+                    new_pom.Time += (
                         request.session['lasttime'] -
                         int(request.POST.get('time')))
-                    request.session['lastpom'].Date = datetime.now()
-                    request.session['lastpom'].Rating = 5
-                    request.session['lastpom'].save()
+                    new_pom.Date = datetime.now()
+                    new_pom.Rating = 5
+                    new_pom.save()
             else:
-                del request.session['lastpom']
+                del new_pom
         except:
-            request.session['lastpom'] = Pom()
+            new_pom = Pom()
+            new_pom.course = course
             request.session['lastcourse'] = request.POST.get('selectedCourse')
             if request.POST.get('time') == 0:
-                request.session['lastpom'].Time = 1500 - request.POST.get(
+                new_pom.Time = 1500 - request.POST.get(
                     'time')
-                request.session['lastpom'].Date = datetime.now()
-                request.session['lastpom'].Rating = 5
-                request.session['lastpom'].save()
+                new_pom.Date = datetime.now()
+                new_pom.Rating = 5
+                new_pom.save()
                 del request.session['lastcourse']
-                del request.session['lastpom']
+                del new_pom
             else:
-                request.session['lastpom'].Time = 1500 - int(
+                new_pom.Time = 1500 - int(
                     request.POST.get('time'))
                 request.session['lasttime'] = int(request.POST.get('time'))
-                request.session['lastpom'].Date = datetime.now()
-                request.session['lastpom'].Rating = 5
-                request.session['lastpom'].save()
+                new_pom.Date = datetime.now()
+                new_pom.Rating = 5
+                new_pom.save()
+            request.session['lastpom'] = new_pom.Pid
     else:
         try:
             del request.session['lastcourse']
