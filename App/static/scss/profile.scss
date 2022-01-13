@@ -135,7 +135,7 @@ p {
             opacity: 0;
             left: 50%;
             top: 50%;
-            transform: translate(50%, -50%);
+            transform: translateY(-50%);
             font-size: calc(8px + 0.5vw);
             margin: 10px;
             transition: all 0.2s ease 0.2s;
