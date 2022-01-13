@@ -183,7 +183,7 @@ def pom(request):
         # request.POST.get('selectedCourse')
         # request.POST.get('time')/25
         try:
-            new_pom = 
+            new_pom = Pom()
             if request.session['lastcourse'] == request.POST.get(
                     'selectedCourse'):
                 if request.POST.get('time') == 0:
@@ -309,6 +309,7 @@ def store(request):
             'doubleCoin': user.store.Doublecoin,
             'doubleCoinTime': user.store.Doublecoin_time,
             'avatarsCount': range(1, 17),
+            'avatar': int(user.store.avatar),
             'allUsernames': [x.Username for x in User.objects.all()]
         })
 

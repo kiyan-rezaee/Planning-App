@@ -32,11 +32,13 @@
                 </p>
             </div>
             <div class="row pb-4 align-items-center justify-content-center row-cols-auto">
-                {% for avatar in avatarsCount%}
+                {% for item in avatarsCount%}
+                {% if item != avatar%}
                 <div class="col-3 text-center align-self-center mx-auto my-3">
-                    <img src="../static/assets/avatar/{{avatar}}.png" alt="Avatar {{avatar}}"
-                        onclick="changeAvatar({{avatar}},true)">
+                    <img src="../static/assets/avatar/{{item}}.png" alt="Avatar {{item}}"
+                        onclick="changeAvatar({{item}},true)">
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -79,10 +81,9 @@
             </li>
             <li class="profile">
                 <div class="profile-details">
-                    <!-- <img src="profile.jpg" alt="profileImg"> -->
                     <div>
                         <div class="username">{{username}}</div>
-                        <div class="coin">Coins: {{coin}}<i class='bx bxl-bitcoin'></i></div>
+                        <div class="coin">Coins: {{coin}} SC</div>
                     </div>
                 </div>
                 <i class='bx bx-log-out' id="log_out"></i>
@@ -182,7 +183,7 @@
                                         <div class="col-md text-center align-self-center">
                                             <div class="cardsStore Trans">
                                                 <h1>Study!</h1>
-                                                <p>You can pay 20k toman instead of 50 coins</p>
+                                                <p>You can study to earn coins</p>
                                             </div>
                                         </div>
                                         <div class="col-md text-center align-self-center">
