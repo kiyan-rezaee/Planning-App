@@ -6,6 +6,25 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 
+def handler404(request, *args, **argv):
+    return render(request, "error.html", {
+        'title': '404: Not Found!',
+        'year': datetime.now().year,
+        'code':404,
+        'description':'asdasdsads'
+    })
+
+
+def handler500(request, *args, **argv):
+    return render(
+        request, "error.html", {
+            'title': '500: Server Error!',
+            'year': datetime.now().year,
+            'code': 500,
+            'description': 'asdasdsads'
+        })
+
+
 def checkSignUp(username, email, pas):
     try:
         User.objects.get(Email=str(email))
@@ -335,9 +354,11 @@ def analysis(request):
     data6 = {}  # mah pish
     for x in Course.objects.filter(user_id=user.Email):
         data1[str(x.Name).replace(f'/{user.Username}', '')] = [0, 0, 0]
-        data1[str(x.Name).replace(f'/{user.Username}', '')][0] = x.Pom_count * 100
+        data1[str(x.Name).replace(f'/{user.Username}',
+                                  '')][0] = x.Pom_count * 100
         data1[str(x.Name).replace(f'/{user.Username}', '')][1] = x.Pom_count
-        data1[str(x.Name).replace(f'/{user.Username}', '')][2] = sum([i.Time for i in Pom.objects.filter(course_id=x)])
+        data1[str(x.Name).replace(f'/{user.Username}', '')][2] = sum(
+            [i.Time for i in Pom.objects.filter(course_id=x)])
     print(data1)
     """Renders the analysis page."""
     # data = {course:{
