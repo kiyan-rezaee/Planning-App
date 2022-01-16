@@ -4,8 +4,8 @@ from datetime import datetime, date, timedelta
 from .models import User, Store, Course, Pom
 from django.shortcuts import redirect
 from django.contrib import messages
-
-
+import json
+import time
 def handler404(request, *args, **argv):
     return render(request, "error.html", {
         'title': '404: Not Found!',
@@ -158,10 +158,8 @@ def profile(request):
         str(x.Name).replace(f'/{user.Username}', '')
         for x in Course.objects.filter(user_id=user.Email)
     ]
-    sum_pom = sum([
-        x['Pom_count']
-        for x in Course.objects.filter(user_id=user.Email).values('Pom_count')
-    ]) * 25
+    a = time.time()
+    sum_pom = f"{sum([ i.Time for x in Course.objects.filter(user_id=user.Email) for i in Pom.objects.filter(course_id=x) ])/3600:.2f}" 
     assert isinstance(request, HttpRequest)
     return render(
         request, 'profile.html', {
@@ -343,27 +341,22 @@ def analysis(request):
         str(x.Name).replace(f'/{user.Username}', '')
         for x in Course.objects.filter(user_id=user.Email)
     ]
-    # x.Name = str(
-    #     str(x.Name).replace(f'/{user.Username}', '') + "/" +
-    #     user.Username)
-    data1 = {}  # emrooz
-    data2 = {}  # dirooz
-    data3 = {}  # in hafte
-    data4 = {}  # hafte pish
-    data5 = {}  # in mah
-    data6 = {}  # mah pish
+# data[1] = sum([1 if i==1500 else 0 for i in k]) # course - pom
+    data1 = []  # emrooz
+    data2 = []  # in hafte
+    data3 = []  # in mah
+    def data(x,day):
+        k = [i.Time if date.today()-i.Date <= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
+        data = [str(x.Name).replace(f'/{user.Username}', ''), 0, 0]
+        data[1] = sum(k)/3600 # zamane dars khondan kol
+        data[2] = sum([100 if i==1500 else 0 for i in k]) # course- coin
+        return data
     for x in Course.objects.filter(user_id=user.Email):
-        data1[str(x.Name).replace(f'/{user.Username}', '')] = [0, 0, 0]
-        data1[str(x.Name).replace(f'/{user.Username}',
-                                  '')][0] = x.Pom_count * 100
-        data1[str(x.Name).replace(f'/{user.Username}', '')][1] = x.Pom_count
-        data1[str(x.Name).replace(f'/{user.Username}', '')][2] = sum(
-            [i.Time for i in Pom.objects.filter(course_id=x)])
-    print(data1)
+        data1.append(data(x,7))
+        data2.append(data(x,30))
+        data3.append(data(x,90))
+    # print(data2)
     """Renders the analysis page."""
-    # data = {course:{
-    #     coin,pom,time,len
-    # }}
     assert isinstance(request, HttpRequest)
     return render(
         request, 'analysis.html', {
@@ -373,11 +366,7 @@ def analysis(request):
             'lastname': user.Lastname,
             'coin': user.Coin,
             'username': user.Username,
-            'data1': data1,
-            'data2': data2,
-            'data3': data3,
-            'data4': data4,
-            'data5': data5,
-            'data6': data6,
-            'max': 20
+            'week': json.dumps(data1),
+            'month': json.dumps(data2),
+            'season': json.dumps(data3),
         })

@@ -1,52 +1,55 @@
 //vase course - pom
 var height = 500;
-function barChart(tag,title){
+function getData(data, key) {
+    if (key==1)
+        var ls = [["Courses", "Spent Hours"]];
+    else
+        var ls = [['Task', 'Hours per Day']]
+    for (var member of data) {
+        ls.push([member[0], member[key]]);
+    }
+    return ls;
+}
+function barChart(tag,title,info){
     google.charts.load('current', { 'packages': ['bar'] });
     google.charts.setOnLoadCallback(drawStuff);
+    var ls = getData(info,1);
     function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-            ['Courses', 'Pomodoros'],
-            ["Course 1", 44],
-            ["Course 2", 44],
-            ["Course 3", 44],
-            ["Course 4", 44],
-        ]);
+        var data = new google.visualization.arrayToDataTable(ls);
         var options = {
-            title: title,
-            width: 900,
-            height:window.height,
-            legend: { position: 'none' },
-            chart: {
-                title: title,
-                subtitle: 'Completed pomodoros per course'
+          height: window.height,
+          chartArea: { width: "80%", height: "80%" },
+          legend: { position: "none", alignment: "center" },
+        //   chart: {
+        //     title: title,
+        //     subtitle: "Spent time per course",
+        //   },
+          bars: "horizontal",
+          axes: {
+            x: {
+              0: { side: "down", label: "Spent Hours" },
             },
-            bars: 'horizontal', // Required for Material Bar Charts.
-            axes: {
-                x: {
-                    0: { side: 'top', label: 'Completed pomodoros' } // Top x-axis.
-                }
-            },
-            bar: { groupWidth: "90%" }
+          },
+          bar: { groupWidth: "80%" },
         };
         var chart = new google.charts.Bar(document.getElementById(tag));
         chart.draw(data, options);
     };
     };
 //vase course - coin
-function pieChart(tag,title){
+function pieChart(tag,title,info){
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
+    var ls = getData(info,2);
     function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Course1',     11],
-        ['Course2',      2],
-        ['Course3',  2],
-        ['Course4', 2],
-    ]);
+    var data = google.visualization.arrayToDataTable(ls);
     var options = {
-        title: title,
-        height: window.height,
+      title: "Earned Coins Per Course",
+      // 'title': title,
+      titlePosition: "right",
+      height: window.height,
+      chartArea: { width: "80%", height: "80%" },
+      legend: { position: "none", alignment: "center" },
     };
     var chart = new google.visualization.PieChart(document.getElementById(tag));
     chart.draw(data, options);
