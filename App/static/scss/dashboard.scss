@@ -115,12 +115,14 @@ $gradientTrans: linear-gradient(to left bottom, #ebeeff, #fce9fc, #ffe6ec, #ffe8
   font-family: sans-serif;
 }
 
-.location-temp {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
+.location {
+  &-temp {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
 
-  sup {
-    font-size: 0.5em;
+    sup {
+      font-size: 0.5em;
+    }
   }
 }
