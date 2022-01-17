@@ -52,7 +52,9 @@ $gradientTrans: linear-gradient(to left bottom, #ebeeff, #fce9fc, #ffe6ec, #ffe8
   white-space: normal;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   transition: all ease-out $cardTransition;
-
+ p {
+        font-size: 20px;
+      }
   &.dash {
     height: 200px;
 
@@ -76,9 +78,7 @@ $gradientTrans: linear-gradient(to left bottom, #ebeeff, #fce9fc, #ffe6ec, #ffe8
       transition: all ease-out $cardTransition,
         transform ease 0.1s $cardTransition;
 
-      p {
-        font-size: 20px;
-      }
+     
     }
 
     &:hover,

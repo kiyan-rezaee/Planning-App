@@ -63,69 +63,84 @@
     <div class="container-fluid pt-2">
       <div class="row py-2 align-items-center justify-content-center">
         <div class="col-md-5 text-center align-self-center mx-auto">
-          <div class="cards">
-            <h1 id="time" style="font-size: 30px"></h1>
+          <div class="cards" >
+            <h1 id="time"style="font-size: 1.7rem;"></h1>
           </div>
         </div>
         <div class="col-md-7 text-center align-self-center mx-auto">
-          <div class="cards">
-            <h1 id="date" style="font-size: 30px"></h1>
+          <div class="cards" >
+            <h1 id="date" style ="font-size: 1.7rem;"></h1>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row py-2 align-items-center justify-content-center row-cols-auto">
+        <div class="col-md text-center align-self-center mx-auto" onclick="window.location.href={% url 'profile' %}">
+          <div class="cards dash actButt">
+            <h1>Profile</h1>
+            <div class="stuffCard">
+              <p>Click here to direct to the Profile page to see your personal information</p> 
+            </div>
+          </div>
+        </div>
+        <div class="col-md text-center align-self-center mx-auto" onclick="window.location.href={% url 'analysis' %}">
+          <div class="cards dash actButt">
+            <h1>Analysis</h1>
+            <div class="stuffCard">
+              <p>Click here to direct to the Analysis page to get a full information about your study progress</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md text-center align-self-center mx-auto" onclick="window.location.href={% url 'pom' %}">
+          <div class="cards dash actButt">
+            <h1>Pomodoro</h1>
+            <div class="stuffCard">
+              <p>Click here to direct to the Pomodoro page which is for calculating your study time with pomodoro method</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md text-center align-self-center mx-auto" onclick="window.location.href={% url 'store' %}">
+          <div class="cards dash actButt">
+            <h1>Store</h1>
+            <div class="stuffCard">
+              <p>Click here to direct to the Store page to buy features like "edit username", "avatar" and more...</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="row py-2 align-items-center justify-content-center row-cols-auto">
+        <div class="col-md text-center align-self-center mx-auto">
+            <div class="cards text-center">
+              <h1 style="font-size: 1.7rem">Study Time (This Week vs Last Week)</h1>
+            </div>
+        </div>
+        </div>
+      <div class="row py-2 align-items-center justify-content-center row-cols-auto">
+        <!--
         <div class="col-md-3 text-center align-self-center mx-auto">
           <div class="cards">
             <div class="weather">
               <ul class="locations" data="tehran"></ul>
             </div>
           </div>
-        </div>
-        <div class="col-md-9 text-center align-self-center mx-auto">
-          <div class="cards">
-          </div>
-        </div>
-      </div>
-      <div class="row py-2 align-items-center justify-content-center row-cols-auto">
+        </div>-->
         <div class="col-md text-center align-self-center mx-auto">
-          <div class="cards dash actButt">
-            <h1>Profile</h1>
-            <div class="stuffCard">
-              <p>You can click here to check your profile account</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md text-center align-self-center mx-auto">
-          <div class="cards dash actButt">
-            <h1>Analysis</h1>
-            <div class="stuffCard">
-              <p>This is a paragraph</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md text-center align-self-center mx-auto">
-          <div class="cards dash actButt">
-            <h1>Pomodoro</h1>
-            <div class="stuffCard">
-              <p>This is a paragraph</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md text-center align-self-center mx-auto">
-          <div class="cards dash actButt">
-            <h1>Store</h1>
-            <div class="stuffCard">
-              <p>This is a paragraph</p>
-            </div>
+          <div class="cards" style="overflow-x: auto;">
+            <div id="chart"></div>
           </div>
         </div>
       </div>
     </div>
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="../static/js/sidebar.js"></script>
   <script>
+    var CSRF_TOKEN = "{{ csrf_token }}";
+    var data = {{data|safe}};
     $(document).ready(function () {
+      $.getScript("../static/js/analysis.js", function () {
+      multiBarChart('chart', 'Comprehense', data);});
       $.getScript("../static/js/todayDate.js", function () {
         setTime();
         setDate();

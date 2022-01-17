@@ -3,10 +3,15 @@ var height = 500;
 function getData(data, key) {
     if (key==1)
         var ls = [["Courses", "Spent Hours"]];
-    else
-        var ls = [['Task', 'Hours per Day']]
+    if (key==2)
+        var ls = [['Task', 'Hours per Day']];
+    if (key==3)
+        var ls = [['Courses', 'This Week','Last Week']];
     for (var member of data) {
+        if (key==2 || key==1)
         ls.push([member[0], member[key]]);
+        else
+        ls.push(member);
     }
     return ls;
 }
@@ -20,10 +25,6 @@ function barChart(tag,title,info){
           height: window.height,
           chartArea: { width: "80%", height: "80%" },
           legend: { position: "none", alignment: "center" },
-        //   chart: {
-        //     title: title,
-        //     subtitle: "Spent time per course",
-        //   },
           bars: "horizontal",
           axes: {
             x: {
@@ -36,7 +37,6 @@ function barChart(tag,title,info){
         chart.draw(data, options);
     };
     };
-//vase course - coin
 function pieChart(tag,title,info){
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -45,7 +45,6 @@ function pieChart(tag,title,info){
     var data = google.visualization.arrayToDataTable(ls);
     var options = {
       title: "Earned Coins Per Course",
-      // 'title': title,
       titlePosition: "right",
       height: window.height,
       chartArea: { width: "80%", height: "80%" },
@@ -55,36 +54,27 @@ function pieChart(tag,title,info){
     chart.draw(data, options);
     };
 };
-// vase moghayese
-function multiBarChart(tag) {
+function multiBarChart(tag,title,info) {
     google.charts.load('current', { 'packages': ['bar'] });
     google.charts.setOnLoadCallback(drawStuff);
+    var ls = getData(info, 3);
     function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-            ['Galaxy', 'Distance', 'Brightness'],
-            ['Canis Major Dwarf', 8000, 23.3],
-            ['Sagittarius Dwarf', 24000, 4.5],
-            ['Ursa Major II Dwarf', 30000, 14.3],
-            ['Lg. Magellanic Cloud', 50000, 0.9],
-            ['Bootes I', 60000, 13.1]
-        ]);
+        var data = new google.visualization.arrayToDataTable(ls);
         var options = {
-            width: 1800,
-            chart: {
-                title: 'Nearby galaxies',
-                subtitle: 'distance on the left, brightness on the right'
+          height: window.height,
+        chartArea: { width: "70%", height: "80%" },
+          bars: "horizontal",
+          series: {
+            0: { axis: "Courses" },
+            1: { axis: "Time" },
+          },
+        legend: { 'position': 'right' },
+          axes: {
+            x: {
+                  Time: { side: "top", label: "Spent Hours" }
             },
-            bars: 'horizontal', // Required for Material Bar Charts.
-            series: {
-                0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
-                1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
             },
-            axes: {
-                x: {
-                    distance: { label: 'parsecs' }, // Bottom x-axis.
-                    brightness: { side: 'top', label: 'apparent magnitude' } // Top x-axis.
-                }
-            }
+            bar: { groupWidth: "90%" }
         };
         var chart = new google.charts.Bar(document.getElementById(tag));
         chart.draw(data, options);

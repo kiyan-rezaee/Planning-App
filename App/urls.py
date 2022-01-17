@@ -10,4 +10,6 @@ urlpatterns = [
     path('chart/', views.pom, name="chart"),
     path('store/', views.store, name="store"),
     path('analysis/', views.analysis, name="analysis"),
+    # path('request/', views.send_request, name='request'),
+    # path('verify/', views.verify , name='verify')
 ]
