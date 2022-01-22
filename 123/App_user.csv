@@ -1,2 +1,2 @@
+Email,Username,Firstname,Lastname,Password,Coin,Dob,Chart
 a@a,admin,asd,asd,admin,0,2022-01-13,"{""sat"": [], ""sun"": [], ""mon"": [], ""tue"": [], ""wen"": [], ""thu"": [], ""fri"": []}"
-\copy "App_store" FROM '/home/vahid/Documents/Planning-App/App_store.csv' DELIMITER ',' ;

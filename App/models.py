@@ -7,10 +7,10 @@ from django.db.models.fields import TimeField
 
 class User(models.Model):
     Email = models.EmailField(unique=True, primary_key=True)
-    Username = models.CharField(max_length=32, unique=True)
-    Firstname = models.CharField(max_length=32, null=True)
-    Lastname = models.CharField(max_length=32, null=True)
-    Password = models.CharField(max_length=32, null=True)
+    Username = models.CharField(max_length=64, unique=True)
+    Firstname = models.CharField(max_length=64, null=True)
+    Lastname = models.CharField(max_length=64, null=True)
+    Password = models.CharField(max_length=64, null=True)
     Coin = models.PositiveIntegerField(default=0, null=True)
     Dob = models.DateField(null=True)
 
@@ -33,7 +33,7 @@ class Course(models.Model):
     # study_goal = models.IntegerField()
     Pom_count = models.IntegerField(default=0)
     Priority = models.PositiveSmallIntegerField()
-    Name = models.CharField(max_length=32, primary_key=True, unique=True)
+    Name = models.CharField(max_length=64, primary_key=True, unique=True)
     # Category = models.CharField(max_length=32)
 
 
@@ -45,7 +45,7 @@ class Store(models.Model):
     Edit_username = models.BooleanField(default=False, null=True)
     dark_mode = models.BooleanField(default=False)
     ml = models.BooleanField(default=False)
-    avatar = models.CharField(max_length=32, null=False, default=0)
+    avatar = models.CharField(max_length=64, null=False, default=0)
 
 
 class Transaction(models.Model):
