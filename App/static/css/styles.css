@@ -109,7 +109,16 @@ footer {
   font-family: 'Bonheur Royale',
     cursive;
 }
-.slider
+.carousel-inner{
+  border-radius: 10px;
+}
+
+.slider {
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+}
 
 .profile-pic {
   border-radius: 50%;
