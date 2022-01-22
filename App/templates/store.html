@@ -101,22 +101,25 @@
               {% else %}
               <div class="row align-items-center justify-content-center">
                 <div class="col text-center align-self-center">
-                  <button class="button" onclick="doubleCoin(100)">
-                    Activate for 2 Days - 100 SC
+                  <button class="button" onclick="doubleCoin(100)" disabled>
+                    <!-- Activate for 2 Days - 100 SC -->
+                    coming soon...
                   </button>
                 </div>
               </div>
               <div class="row align-items-center justify-content-center">
                 <div class="col text-center align-self-center">
-                  <button class="button" onclick="doubleCoin(500)">
-                    Activate for 2 Weeks - 500 SC
+                  <button class="button" onclick="doubleCoin(500)" disabled>
+                    <!-- Activate for 2 Weeks - 500 SC -->
+                    coming soon...
                   </button>
                 </div>
               </div>
               <div class="row align-items-center justify-content-center">
                 <div class="col text-center align-self-center">
-                  <button class="button" onclick="doubleCoin(800)">
-                    Activate for 1 Month - 800 SC
+                  <button class="button" onclick="doubleCoin(800)" disabled>
+                    <!-- Activate for 1 Month - 800 SC -->
+                    coming soon...
                   </button>
                 </div>
               </div>
@@ -157,8 +160,14 @@
           <div class="cardsStore" id="dark">
             <h1>Dark Mode</h1>
             <div class="stuffCard">
-              <button class="button" onclick="checkDarkmode()">
-                buy dark mode - 500 sc
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quia delectus facilis sunt maxime
+                voluptatibus, sit reiciendis eius magnam, perspiciatis nesciunt corporis laudantium blanditiis ea
+                numquam temporibus! Itaque, corporis magnam
+              </p>
+              <button class="button" onclick="checkDarkmode()" disabled>
+                <!-- buy dark mode - 500 sc -->
+                coming soon...
               </button>
             </div>
           </div>
@@ -171,9 +180,12 @@
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim
                 deserunt quasi mollitia fugit ducimus laudantium fugiat earum
                 sed aspernatur, consectetur facilis dicta ipsam, magnam
-                voluptate quam laborum distinctio excepturi molestias?
+                voluptate quam laborum distinctio excepturi molestias
               </p>
-              <button class="button" disabled>coming soon...</button>
+              <button class="button" disabled>
+                <!-- buy for 1000 sc -->
+                coming soon...
+              </button>
             </div>
           </div>
         </div>
@@ -188,27 +200,30 @@
                 <div class="container-fluid">
                   <div class="row align-items-center justify-content-center row-cols-auto">
                     <div class="col-md text-center align-self-center">
-                      <div class="cardsStore Trans">
+                      <div class="cardsStore Trans actButt" onclick="window.location.href={% url 'pom' %}">
                         <h1>Study!</h1>
-                        <p>You can study to earn coins</p>
+                        <p>You can study to earn SCs</p>
                       </div>
                     </div>
                     <div class="col-md text-center align-self-center">
                       <div class="cardsStore Trans">
-                        <h1>50 coins</h1>
-                        <p>You can pay 20k toman instead of 50 coins</p>
+                        <h1>50 SC</h1>
+                        <p>You can pay 200k RLS for 50 SC</p>
+                        <p>available soon...</p>
                       </div>
                     </div>
                     <div class="col-md text-center align-self-center">
                       <div class="cardsStore Trans">
-                        <h1>100 coins</h1>
-                        <p>You can pay 50k toman instead of 100 coins</p>
+                        <h1>100 SC</h1>
+                        <p>You can pay 500k RLS for 100 SC</p>
+                        <p>available soon...</p>
                       </div>
                     </div>
                     <div class="col-md text-center align-self-center">
                       <div class="cardsStore Trans">
-                        <h1>150 coins</h1>
-                        <p>You can pay 100k toman instead of 150 coins</p>
+                        <h1>150 SC</h1>
+                        <p>You can pay 1000k RLS for 150 SC</p>
+                        <p>available soon...</p>
                       </div>
                     </div>
                   </div>

@@ -104,10 +104,8 @@ function switchMode(mode) {
     .querySelectorAll('button[data-mode]')
     .forEach(e => e.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
-  // document
-  //   .getElementById('js-progress')
-  // .setAttribute('max', timer.remainingTime.total);
   document.body.style.backgroundColor = `var(--${mode})`;
+  // document.body.style.background = `var(--${mode}-img)`;
   document.styleSheets[0]
   updateClock();
 
