@@ -4,6 +4,7 @@ function hide(tag) {
     $(tag).css("display", "none");
   }, 200);
 }
+
 function show(tag) {
   $(tag).css("opacity", "1");
   setTimeout(function () {
@@ -15,8 +16,11 @@ function showUsername() {
   if (COIN >= 1000) {
     $('#username').prop("onclick", null).off("click");
     $('.usernameInput').css("display", "flex");
+  } else {
+    alert("You don't have enough coins!")
   }
 }
+
 function changeUsername() {
   $.ajax({
     type: 'POST',
@@ -34,6 +38,7 @@ function changeUsername() {
     }
   })
 };
+
 function checkDarkmode() {
 
   if (COIN >= 500) {
@@ -51,6 +56,8 @@ function checkDarkmode() {
         console.log("error");
       }
     })
+  } else {
+    alert("You don't have enough coins!")
   }
 };
 
@@ -59,12 +66,10 @@ function changeAvatar(value = 0, key = true) {
   if (!key) {
     if (COIN >= 200) {
       show(tag);
-    }
-    else {
+    } else {
       alert("You don't have enough coins!")
     }
-  }
-  else {
+  } else {
     $.ajax({
       type: 'POST',
       url: '/store/',
@@ -101,5 +106,7 @@ function doubleCoin(price) {
         console.log("error");
       }
     })
+  } else {
+    alert("You don't have enough coins!")
   }
 }
