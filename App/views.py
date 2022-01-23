@@ -216,16 +216,25 @@ def pom(request):
         request.POST.get('mode')
         # request.POST.get('selectedCourse')
         # request.POST.get('time')/25
-        print(2)
+        print(1)
         new_pom = Pom()
+        print(2)
         new_pom.course = course
+        print(3)
         request.session['lastcourse'] = request.POST.get('selectedCourse')
+        print(4)
         new_pom.Time = 1500 - int(time)
+        print(5)
         new_pom.Date = datetime.now()
+        print(6)
         new_pom.Rating = 5
+        print(7)
         new_pom.save()
+        print(8)
         request.session['lastpom'] = new_pom.Pid
-        print(request.session['lastpom'] )
+        print(9)
+        print(request.session['lastpom'])
+        print(request.session)
         # try:
         #     new_pom = Pom.objects.get(Pid=request.session['lastpom'])
         #     print(1)
