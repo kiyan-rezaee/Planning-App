@@ -216,52 +216,62 @@ def pom(request):
         request.POST.get('mode')
         # request.POST.get('selectedCourse')
         # request.POST.get('time')/25
-        try:
-            new_pom = Pom.objects.get(Pid=request.session['lastpom'])
-            print(1)
-            if request.session['lastcourse'] == request.POST.get(
-                    'selectedCourse'):
-                if int(request.POST.get('time')) == -1:
-                    pass
-                elif int(request.POST.get('time')) == 0:
-                    new_pom.course.Pom_count += 1
-                    new_pom.course.save()
-                    print(11)
-                    pom_func(new_pom, request.POST.get('time'))
-                    del request.session['lastcourse']
-                    del request.session['lastpom']
-                    del new_pom
-                else:
-                    print(12)
-                    pom_func(new_pom, request.POST.get('time'))
-            else:
-                print(13)
-                del request.session['lastpom']
-                del new_pom
-        except:
-            print(2)
-            new_pom = Pom()
-            new_pom.course = course
-            request.session['lastcourse'] = request.POST.get('selectedCourse')
-            if int(request.POST.get('time')) == -1:
-                pass
-            elif int(request.POST.get('time')) == 0:
-                new_pom.course.Pom_count += 1
-                new_pom.course.save()
-                print(21)
-                pom_func(new_pom, request.POST.get('time'))
-                request.session['lastpom'] = new_pom.Pid
-                del request.session['lastcourse']
-                del new_pom
-            else:
-                print(22)
-                # pom_func(new_pom, request.POST.get('time'))
-                new_pom.Time = 1500 - int(time)
-                new_pom.Date = datetime.now()
-                new_pom.Rating = 5
-                new_pom.save()
-                request.session['lastpom'] = new_pom.Pid
-                print(request.session['lastpom'] )
+        print(2)
+        new_pom = Pom()
+        new_pom.course = course
+        request.session['lastcourse'] = request.POST.get('selectedCourse')
+        new_pom.Time = 1500 - int(time)
+        new_pom.Date = datetime.now()
+        new_pom.Rating = 5
+        new_pom.save()
+        request.session['lastpom'] = new_pom.Pid
+        print(request.session['lastpom'] )
+        # try:
+        #     new_pom = Pom.objects.get(Pid=request.session['lastpom'])
+        #     print(1)
+        #     if request.session['lastcourse'] == request.POST.get(
+        #             'selectedCourse'):
+        #         if int(request.POST.get('time')) == -1:
+        #             pass
+        #         elif int(request.POST.get('time')) == 0:
+        #             new_pom.course.Pom_count += 1
+        #             new_pom.course.save()
+        #             print(11)
+        #             pom_func(new_pom, request.POST.get('time'))
+        #             del request.session['lastcourse']
+        #             del request.session['lastpom']
+        #             del new_pom
+        #         else:
+        #             print(12)
+        #             pom_func(new_pom, request.POST.get('time'))
+        #     else:
+        #         print(13)
+        #         del request.session['lastpom']
+        #         del new_pom
+        # except:
+        #     print(2)
+        #     new_pom = Pom()
+        #     new_pom.course = course
+        #     request.session['lastcourse'] = request.POST.get('selectedCourse')
+        #     if int(request.POST.get('time')) == -1:
+        #         pass
+        #     elif int(request.POST.get('time')) == 0:
+        #         new_pom.course.Pom_count += 1
+        #         new_pom.course.save()
+        #         print(21)
+        #         pom_func(new_pom, request.POST.get('time'))
+        #         request.session['lastpom'] = new_pom.Pid
+        #         del request.session['lastcourse']
+        #         del new_pom
+        #     else:
+        #         print(22)
+        #         # pom_func(new_pom, request.POST.get('time'))
+        #         new_pom.Time = 1500 - int(time)
+        #         new_pom.Date = datetime.now()
+        #         new_pom.Rating = 5
+        #         new_pom.save()
+        #         request.session['lastpom'] = new_pom.Pid
+        #         print(request.session['lastpom'] )
     else:
         try:
             del request.session['lastcourse']
