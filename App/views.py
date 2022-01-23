@@ -210,7 +210,6 @@ def pom(request):
         for x in Course.objects.filter(user_id=user.Email)
     ]
     if request.method == 'POST':
-        print(request.sessions)
         coursename = str(
             request.POST.get('selectedCourse') + "/" + user.Username)
         course = Course.objects.get(Name=coursename)
