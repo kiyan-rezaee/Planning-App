@@ -16,6 +16,7 @@ import dj_database_url
 
 import django_heroku
 
+SESSION_ENGINE= 'django.contrib.sessions.backends.cached_db'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
