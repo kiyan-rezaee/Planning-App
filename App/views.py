@@ -194,18 +194,10 @@ def profile(request):
 
 
 def pom_func(new_pom, time):
-    print(new_pom, time)
     new_pom.Time = 1500 - int(time)
-    print(1)
     new_pom.Date = datetime.now()
-    print(2)
     new_pom.Rating = 5
-    print(3)
-    try:
-        new_pom.save()
-    except Exception as e:
-        print(e)
-    print(4)
+    new_pom.save()
 
 
 def pom(request):
@@ -264,11 +256,7 @@ def pom(request):
             else:
                 print(22)
                 pom_func(new_pom, request.POST.get('time'))
-                print(23)
                 request.session['lastpom'] = new_pom.Pid
-                print(24)
-                print(request.session['lastpom'])
-                print(request.session)
     else:
         try:
             del request.session['lastcourse']
