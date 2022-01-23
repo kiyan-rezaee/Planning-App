@@ -201,7 +201,10 @@ def pom_func(new_pom, time):
     print(2)
     new_pom.Rating = 5
     print(3)
-    new_pom.save()
+    try:
+        new_pom.save()
+    except e as Exception:
+        print(e)
     print(4)
 
 
