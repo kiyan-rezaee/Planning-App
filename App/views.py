@@ -8,12 +8,13 @@ import json
 import time
 import requests
 
+
 def handler404(request, *args, **argv):
     return render(request, "error.html", {
         'title': '404: Not Found!',
         'year': datetime.now().year,
-        'code':404,
-        'description':'asdasdsads'
+        'code': 404,
+        'description': 'asdasdsads'
     })
 
 
@@ -103,15 +104,18 @@ def dashboard(request):
     except:
         user = User.objects.get(Email=str(request.session['username']))
     data1 = []
-    def data(x,day,d2):
-        k = [i.Time if date.today()-i.Date <= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
-        k2 = [i.Time if timedelta(days=d2) >=date.today()-i.Date >= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
+
+    def data(x, day, d2):
+        k = [i.Time if date.today()-i.Date <= timedelta(days=day)
+             else 0 for i in Pom.objects.filter(course_id=x)]
+        k2 = [i.Time if timedelta(days=d2) >= date.today(
+        )-i.Date >= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
         data = [str(x.Name).replace(f'/{user.Username}', ''), 0, 0]
         data[1] = sum(k)/3600
-        data[2] = sum(k2)/3600 
+        data[2] = sum(k2)/3600
         return data
     for x in Course.objects.filter(user_id=user.Email):
-        data1.append(data(x,7,14))
+        data1.append(data(x, 7, 14))
     # print(data1)
     # print(data2)
     """Renders the dashboard page."""
@@ -124,7 +128,7 @@ def dashboard(request):
             'lastname': user.Lastname,
             'coin': user.Coin,
             'username': user.Username,
-            'data' : data1
+            'data': data1
         })
 
 
@@ -174,7 +178,7 @@ def profile(request):
         for x in Course.objects.filter(user_id=user.Email)
     ]
     a = time.time()
-    sum_pom = f"{sum([ i.Time for x in Course.objects.filter(user_id=user.Email) for i in Pom.objects.filter(course_id=x) ])/3600:.2f}" 
+    sum_pom = f"{sum([ i.Time for x in Course.objects.filter(user_id=user.Email) for i in Pom.objects.filter(course_id=x) ])/3600:.2f}"
     assert isinstance(request, HttpRequest)
     return render(
         request, 'profile.html', {
@@ -255,8 +259,12 @@ def pom(request):
                 del new_pom
             else:
                 print(22)
-                pom_func(new_pom, request.POST.get('time'))
+                # pom_func(new_pom, request.POST.get('time'))
                 request.session['lastpom'] = new_pom.Pid
+                new_pom.Time = 1500 - int(time)
+                new_pom.Date = datetime.now()
+                new_pom.Rating = 5
+                new_pom.save()
     else:
         try:
             del request.session['lastcourse']
@@ -359,16 +367,18 @@ def analysis(request):
     data1 = []  # emrooz
     data2 = []  # in hafte
     data3 = []  # in mah
-    def data(x,day):
-        k = [i.Time if date.today()-i.Date <= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
+
+    def data(x, day):
+        k = [i.Time if date.today()-i.Date <= timedelta(days=day)
+             else 0 for i in Pom.objects.filter(course_id=x)]
         data = [str(x.Name).replace(f'/{user.Username}', ''), 0, 0]
-        data[1] = sum(k)/3600 # zamane dars khondan kol
-        data[2] = sum([100 if i==1500 else 0 for i in k]) # course- coin
+        data[1] = sum(k)/3600  # zamane dars khondan kol
+        data[2] = sum([100 if i == 1500 else 0 for i in k])  # course- coin
         return data
     for x in Course.objects.filter(user_id=user.Email):
-        data1.append(data(x,7))
-        data2.append(data(x,30))
-        data3.append(data(x,90))
+        data1.append(data(x, 7))
+        data2.append(data(x, 30))
+        data3.append(data(x, 90))
     # print(data2)
     """Renders the analysis page."""
     assert isinstance(request, HttpRequest)
