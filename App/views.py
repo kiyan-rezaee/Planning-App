@@ -203,7 +203,7 @@ def pom_func(new_pom, time):
     print(3)
     try:
         new_pom.save()
-    except e as Exception:
+    except Exception as e:
         print(e)
     print(4)
 
