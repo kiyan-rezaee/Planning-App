@@ -36,14 +36,16 @@ select {
 }
 
 .emoji {
-    height: 4.5em;
-    width: 4.5em;
+    height: calc(40px + 1vh);
+    width: calc(40px + 1vh);
     background-color: transparent;
-    color: transparent;
+    // color: transparent;
 
     img {
+        height: 100%;
+        width: 100%;
         opacity: 0.6;
-        border-radius: 100%;
+        border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
             rgba(0, 0, 0, 0.23) 0px 3px 6px;
         transition: all 0.2s ease-in-out;
