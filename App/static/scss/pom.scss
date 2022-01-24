@@ -34,3 +34,33 @@ select {
         display: none;
     }
 }
+
+.emoji {
+    height: 4.5em;
+    width: 4.5em;
+    background-color: transparent;
+    color: transparent;
+
+    img {
+        opacity: 0.6;
+        border-radius: 100%;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+                rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
+    }
+
+    &.active {
+        img {
+            transform: scale(1.05);
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+                rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            opacity: 1;
+        }
+    }
+}

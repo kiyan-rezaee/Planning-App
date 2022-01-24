@@ -7,6 +7,7 @@ const timer = {
 };
 
 let interval;
+var emoji = 3;
 
 function getRemainingTime(endTime) {
   const currentTime = Date.parse(new Date());
@@ -24,7 +25,9 @@ function getRemainingTime(endTime) {
 }
 
 function updateClock() {
-  const { remainingTime } = timer;
+  const {
+    remainingTime
+  } = timer;
   const minutes = `${remainingTime.minutes}`.padStart(2, '0');
   const seconds = `${remainingTime.seconds}`.padStart(2, '0');
 
@@ -40,7 +43,9 @@ function updateClock() {
 }
 
 function startTimer() {
-  let { total } = timer.remainingTime;
+  let {
+    total
+  } = timer.remainingTime;
   const endTime = Date.parse(new Date()) + total * 1000;
 
   if (timer.mode === 'pomodoro') timer.sessions++;
@@ -113,7 +118,9 @@ function switchMode(mode) {
 }
 
 function handleMode(event) {
-  const { mode } = event.target.dataset;
+  const {
+    mode
+  } = event.target.dataset;
 
   if (!mode) return;
 
@@ -126,7 +133,9 @@ function handleMode(event) {
 const buttonSound = new Audio();
 const mainButton = document.getElementById('js-btn');
 mainButton.addEventListener('click', () => {
-  const { action } = mainButton.dataset;
+  const {
+    action
+  } = mainButton.dataset;
   buttonSound.play();
   if (action === 'start') {
     startTimer();
@@ -151,6 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   switchMode('pomodoro');
 });
+
+function rating(rate, tag) {
+  window.emoji = rate;
+  for (i of ['a', 'b', 'c', 'd', 'e'])
+    document.getElementById(i).classList.remove('active')
+  document.getElementById(tag).classList.add('active')
+}
+
 function postSearch(time = -1) {
   if (time == -1) {
     mode = timer.mode;
@@ -160,7 +177,8 @@ function postSearch(time = -1) {
       seconds: 0,
     };
     updateClock();
-  } if (timer.mode === 'pomodoro') {
+  }
+  if (timer.mode === 'pomodoro') {
     $.ajax({
       type: 'POST',
       url: '/pom/',
@@ -168,6 +186,7 @@ function postSearch(time = -1) {
         'selectedCourse': $('#course option:selected').text(),
         'time': time,
         'mode': timer.mode,
+        'rating': window.emoji,
         'csrfmiddlewaretoken': CSRF_TOKEN,
       },
       success: function () {
