@@ -13,7 +13,7 @@ def handler404(request, *args, **argv):
         'title': '404: Not Found!',
         'year': datetime.now().year,
         'code':404,
-        'description':'asdasdsads'
+        'description':'Page Not Found!'
     })
 
 
@@ -23,7 +23,7 @@ def handler500(request, *args, **argv):
             'title': '500: Server Error!',
             'year': datetime.now().year,
             'code': 500,
-            'description': 'asdasdsads'
+            'description': 'Server Error!'
         })
 
 
@@ -106,7 +106,7 @@ def dashboard(request):
     def data(x,day,d2):
         k = [i.Time if date.today()-i.Date <= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
         k2 = [i.Time if timedelta(days=d2) >=date.today()-i.Date >= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
-        data = [str(x.Name).replace(f'/{user.Username}', ''), 0, 0]
+        data = [str(x.Name).split("/")[0], 0, 0]
         data[1] = sum(k)/3600
         data[2] = sum(k2)/3600 
         return data
@@ -170,7 +170,7 @@ def profile(request):
     except:
         user = User.objects.get(Email=str(request.session['username']))
     li = [
-        str(x.Name).replace(f'/{user.Username}', '')
+        str(x.Name).split("/")[0]
         for x in Course.objects.filter(user_id=user.Email)
     ]
     a = time.time()
@@ -193,7 +193,8 @@ def profile(request):
         })
 
 
-def pom_func(new_pom, time):
+def pom_func(new_pom, time,rating):
+    new_pom.Rating = rating
     new_pom.Time = 1500 - int(time)
     new_pom.Date = datetime.now()
     new_pom.Rating = 5
@@ -206,7 +207,7 @@ def pom(request):
     except:
         user = User.objects.get(Email=str(request.session['username']))
     li = [
-        str(x.Name).replace(f'/{user.Username}', '')
+        str(x.Name).split("/")[0]
         for x in Course.objects.filter(user_id=user.Email)
     ]
     if request.method == 'POST':
@@ -226,14 +227,19 @@ def pom(request):
                 elif int(request.POST.get('time')) == 0:
                     new_pom.course.Pom_count += 1
                     new_pom.course.save()
+                    if date.today() < user.store.Doublecoin_time:
+                        user.Coin += 200
+                    else:
+                        user.Coin += 100
+                    user.save()
                     print(11)
-                    pom_func(new_pom, request.POST.get('time'))
+                    pom_func(new_pom, request.POST.get('time'),request.POST.get('rating'))
                     del request.session['lastcourse']
                     del request.session['lastpom']
                     del new_pom
                 else:
                     print(12)
-                    pom_func(new_pom, request.POST.get('time'))
+                    pom_func(new_pom, request.POST.get('time'),request.POST.get('rating'))
             else:
                 print(13)
                 del request.session['lastpom']
@@ -249,13 +255,13 @@ def pom(request):
                 new_pom.course.Pom_count += 1
                 new_pom.course.save()
                 print(21)
-                pom_func(new_pom, request.POST.get('time'))
+                pom_func(new_pom, request.POST.get('time'),request.POST.get('rating'))
                 request.session['lastpom'] = new_pom.Pid
                 del request.session['lastcourse']
                 del new_pom
             else:
                 print(22)
-                pom_func(new_pom, request.POST.get('time'))
+                pom_func(new_pom, request.POST.get('time'),request.POST.get('rating'))
                 request.session['lastpom'] = new_pom.Pid
     else:
         try:
@@ -287,9 +293,10 @@ def store(request):
                 for x in Course.objects.filter(user_id=user.Email):
                     x.Name = str(
                         str(x.Name).replace(f'/{user.Username}', '') + "/" +
-                        user.Username)
+                        request.POST.get('newUsername'))
                     x.save()
                 user.Username = request.POST.get('newUsername')
+                user.Coin -= 1000
                 user.save()
             except Exception as a:
                 messages.add_message(
@@ -325,6 +332,7 @@ def store(request):
         elif request.POST.get('code') == 'avatar':
             user.store.avatar = request.POST.get('avatarCode')
             user.store.save()
+            user.Coin -= 200
             user.save()
         elif request.POST.get('code') == 'ml':
             pass
@@ -353,7 +361,7 @@ def analysis(request):
     except:
         user = User.objects.get(Email=str(request.session['username']))
     li = [
-        str(x.Name).replace(f'/{user.Username}', '')
+        str(x.Name).split("/")[0]
         for x in Course.objects.filter(user_id=user.Email)
     ]
     data1 = []  # emrooz
@@ -361,7 +369,7 @@ def analysis(request):
     data3 = []  # in mah
     def data(x,day):
         k = [i.Time if date.today()-i.Date <= timedelta(days=day) else 0 for i in Pom.objects.filter(course_id=x)]
-        data = [str(x.Name).replace(f'/{user.Username}', ''), 0, 0]
+        data = [str(x.Name).split("/")[0], 0, 0]
         data[1] = sum(k)/3600 # zamane dars khondan kol
         data[2] = sum([100 if i==1500 else 0 for i in k]) # course- coin
         return data
