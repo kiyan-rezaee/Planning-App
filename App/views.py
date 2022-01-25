@@ -211,10 +211,11 @@ def pom(request):
         for x in Course.objects.filter(user_id=user.Email)
     ]
     if request.method == 'POST':
-        coursename = str(
-            request.POST.get('selectedCourse') + "/" + user.Username)
-        course = Course.objects.get(Name=coursename)
-        request.POST.get('mode')
+        for x in Course.objects.filter(user_id=user.Email):
+            if  str(request.POST.get('selectedCourse') + "/") in x.Name:
+                course = x
+                break
+        # request.POST.get('mode')
         # request.POST.get('selectedCourse')
         # request.POST.get('time')/25
         try:
