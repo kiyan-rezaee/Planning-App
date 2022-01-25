@@ -298,6 +298,7 @@ def store(request):
                 user.Username = request.POST.get('newUsername')
                 user.Coin -= 1000
                 user.save()
+                request.session['username'] = User.Username
             except Exception as a:
                 messages.add_message(
                     request, messages.INFO,
