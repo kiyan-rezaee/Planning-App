@@ -290,11 +290,11 @@ def store(request):
     if request.method == 'POST':
         if request.POST.get('code') == 'username':
             try:
-                for x in Course.objects.filter(user_id=user.Email):
-                    x.Name = str(
-                        str(x.Name).replace(f'/{user.Username}', '') + "/" +
-                        request.POST.get('newUsername'))
-                    x.save()
+                # for x in Course.objects.filter(user_id=user.Email):
+                #     x.Name = str(
+                #         str(x.Name).replace(f'/{user.Username}', '') + "/" +
+                #         request.POST.get('newUsername'))
+                #     x.save()
                 user.Username = request.POST.get('newUsername')
                 user.Coin -= 1000
                 user.save()
